@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keratoconus in the Middle East and North Africa: projected cases by country, 2025 to 2050</title>
+<meta name="description" content="Projected number of people with keratoconus in 21 countries of the Middle East and North Africa in 2025 and 2050, with uncertainty ranges, from a systematic review and meta-analysis. Thirteen countries have no population-based prevalence study.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --paper:#F6F7F5;
+    --ink:#17233B;
+    --muted:#5B6472;
+    --rule:#D5D9D3;
+    --accent:#A8323F;
+    --tint:rgba(23,35,59,.08);
+    --serif:Georgia,"Times New Roman",Times,serif;
+    --sans:Arial,"Helvetica Neue",Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--paper)}
+  body{
+    margin:0;color:var(--ink);background:var(--paper);
+    font-family:var(--serif);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .status{
+    font-family:var(--sans);font-size:13px;color:var(--muted);
+    border-bottom:1px solid var(--rule);padding:10px 24px;
+  }
+  main{max-width:860px;margin:0 auto;padding:40px 24px 64px}
+  h1{
+    font-weight:600;font-size:clamp(28px,4.6vw,42px);
+    line-height:1.12;margin:0 0 10px;letter-spacing:-.012em;
+  }
+  .sub{font-size:19px;color:var(--muted);margin:0 0 26px}
+  .lede{font-size:19px;max-width:64ch;margin:0 0 36px}
+  .lede strong{font-weight:600}
+  h2{font-weight:600;font-size:22px;margin:48px 0 12px;letter-spacing:-.01em}
+  p{max-width:66ch}
+  .note{font-family:var(--sans);font-size:14px;color:var(--muted);margin:10px 0 0;max-width:none}
+
+  /* map */
+  .map{border-top:1px solid var(--rule);padding-top:16px}
+  .map svg{width:100%;height:auto;display:block;font-family:var(--sans)}
+  .map .c{cursor:pointer}
+  .map .c:focus{outline:none}
+  .map .c:focus path.base, .map .c:focus circle.base{stroke:var(--accent);stroke-width:2}
+  .map text{pointer-events:none}
+  .keys{
+    font-family:var(--sans);font-size:13.5px;color:var(--muted);
+    display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 0;align-items:center;
+  }
+  .keys span{display:inline-flex;align-items:center;gap:7px}
+  .keys svg{width:22px;height:12px;flex:none}
+
+  /* bar chart */
+  .chart{border-top:1px solid var(--rule);padding-top:18px}
+  .chart svg{width:100%;height:auto;display:block;font-family:var(--sans)}
+  .chart .row{cursor:pointer}
+  .chart .row:focus{outline:none}
+  .chart .row:focus rect.hit{stroke:var(--accent);stroke-width:1.5}
+
+  /* country panel */
+  .panel{
+    border:1px solid var(--rule);border-left:4px solid var(--accent);
+    padding:22px 24px;margin-top:22px;background:#fff;
+  }
+  .panel label{font-family:var(--sans);font-size:14px;color:var(--muted);display:block;margin-bottom:6px}
+  .panel select{
+    font-family:var(--serif);font-size:24px;font-weight:600;color:var(--ink);
+    background:transparent;border:0;border-bottom:1px solid var(--ink);
+    padding:2px 28px 4px 0;border-radius:0;cursor:pointer;
+    appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'><path d='M1 1l6 6 6-6' fill='none' stroke='%2317233B' stroke-width='1.6'/></svg>");
+    background-repeat:no-repeat;background-position:right 2px center;
+  }
+  .panel select:focus{outline:2px solid var(--accent);outline-offset:3px}
+  .figures{
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 24px;
+    margin:22px 0 18px;font-family:var(--sans);
+  }
+  .fig .year{display:block;font-size:14px;color:var(--muted)}
+  .fig .big{display:block;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+  .fig .range{display:block;font-size:14px;color:var(--muted);margin-top:2px;font-variant-numeric:tabular-nums}
+  .evidence{font-size:16px;margin:0 0 18px;max-width:60ch}
+  .actions{display:flex;flex-wrap:wrap;gap:10px}
+  button{
+    font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink);
+    background:#fff;border:1px solid var(--ink);padding:8px 14px;cursor:pointer;border-radius:0;
+  }
+  button:hover{background:var(--tint)}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .toast{font-family:var(--sans);font-size:13px;color:var(--muted);margin:10px 0 0;min-height:1.2em}
+
+  /* table */
+  .tablewrap{overflow-x:auto;border-top:1px solid var(--rule)}
+  table{
+    border-collapse:collapse;width:100%;min-width:760px;
+    font-family:var(--sans);font-size:14.5px;font-variant-numeric:tabular-nums;
+  }
+  th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  th{font-weight:500;color:var(--muted);vertical-align:bottom}
+  th button{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;border-bottom:1px dotted var(--muted)}
+  th button[aria-sort="descending"]::after{content:" \2193"}
+  th button[aria-sort="ascending"]::after{content:" \2191"}
+  td.range{color:var(--muted)}
+  tbody tr{cursor:pointer}
+  tr.selected td{background:rgba(168,50,63,.07);font-weight:600}
+  tr.selected td.range{font-weight:400}
+  tfoot td{font-weight:600;border-bottom:0;border-top:2px solid var(--ink)}
+  td.nodata{color:var(--accent)}
+
+  .methods p{font-size:16px}
+  .note a{color:var(--ink)}
+
+  /* left tool rail */
+  body{padding-left:92px}
+  .rail{
+    position:fixed;left:0;top:0;bottom:0;width:92px;z-index:30;
+    background:var(--paper);border-right:1px solid var(--rule);
+    display:flex;flex-direction:column;padding-top:56px;font-family:var(--sans);
+  }
+  .rail button,.rail a{
+    appearance:none;border:0;background:none;color:var(--muted);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:7px;width:100%;
+    padding:15px 4px;font-family:var(--sans);font-size:12.5px;font-weight:400;line-height:1;
+    text-decoration:none;border-radius:0;
+  }
+  .rail button:hover,.rail a:hover{color:var(--ink);background:none}
+  .rail button[aria-expanded="true"]{color:var(--ink)}
+  .rail svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .rail .q{font-family:var(--serif);font-size:28px;line-height:22px;height:22px;display:block}
+  .rail a.muted{opacity:.45;cursor:default}
+
+  /* popovers that open beside the rail */
+  .pop{
+    position:fixed;z-index:41;width:min(540px,calc(100vw - 124px));
+    background:#fff;border:1px solid var(--rule);border-radius:4px;
+    box-shadow:0 14px 40px rgba(23,35,59,.20);padding:14px 16px 16px;font-family:var(--sans);
+  }
+  .pop[hidden]{display:none}
+  .pop.small{width:min(300px,calc(100vw - 124px))}
+  .pop.sheet{left:12px;right:12px;bottom:72px;top:auto;width:auto}
+  .citepop-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .citepop-head span{font-family:var(--serif);font-weight:600;font-size:17px}
+  .citepop-x{border:0;background:none;font-size:22px;line-height:1;padding:2px 6px;color:var(--muted)}
+  .citepop-x:hover{color:var(--ink);background:none}
+  .citepop-tabs{display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--rule);margin-bottom:10px;scrollbar-width:none}
+  .citepop-tabs::-webkit-scrollbar{display:none}
+  .citepop-tabs button{
+    border:0;background:none;padding:7px 10px 8px;font-size:13.5px;color:var(--muted);
+    border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;
+  }
+  .citepop-tabs button:hover{background:none;color:var(--ink)}
+  .citepop-tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink);font-weight:500}
+  .citepop-text{
+    margin:0 0 12px;padding:12px 13px;border:1px solid var(--rule);background:var(--paper);
+    font-family:var(--sans);font-size:13.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word;
+    max-height:190px;overflow:auto;
+  }
+  .citepop-text.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+  .citepop-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .citepop-note{font-size:12.5px;color:var(--muted)}
+  .outline{list-style:none;margin:0;padding:0}
+  .outline a{display:block;padding:9px 0;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);font-size:14.5px}
+  .outline li:last-child a{border-bottom:0}
+  .outline a:hover{color:var(--accent)}
+  h2,.panel{scroll-margin-top:18px}
+
+  @media (max-width:760px){
+    body{padding-left:0;padding-bottom:64px}
+    .rail{
+      top:auto;bottom:0;right:0;width:auto;height:60px;flex-direction:row;padding:0;
+      border-right:0;border-top:1px solid var(--rule);justify-content:space-around;
+    }
+    .rail button,.rail a{padding:8px 2px;font-size:11px;gap:4px;flex:1;width:auto}
+    .rail .q{font-size:26px}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    html{scroll-behavior:smooth}
+  }
+  footer{
+    border-top:1px solid var(--rule);margin-top:56px;padding-top:18px;
+    font-family:var(--sans);font-size:14px;color:var(--muted);
+  }
+  footer a{color:var(--ink)}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  @media (max-width:560px){
+    main{padding:28px 18px 48px}
+    .figures{grid-template-columns:1fr 1fr}
+    .panel{padding:18px}
+    .panel select{font-size:21px}
+    .keys{font-size:12.5px;gap:6px 14px}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .chart rect, .map path{transition:fill .18s ease}
+  }
+</style>
+<style id="conference-copy">
+  /* Conference copy: download, citation and copy controls are off until the paper is published. Delete this block to restore them. */
+  #copyFig,#copyCite,#csv,#railCite,#railData,#toast{display:none !important}
+</style>
+</head>
+<body>
+
+<main>
+  <h1>Keratoconus in the Middle East and North Africa</h1>
+  <p class="sub">Projected number of people affected in 21 countries, 2025 to 2050</p>
+
+
+  <p class="lede">An estimated <strong>13.1 million</strong> people aged 10 and over had keratoconus across the region in 2025. By 2050 the number is projected to reach <strong>18.5 million</strong>, an increase of 41% that comes from population growth and age structure alone. Thirteen of the 21 countries have no population-based prevalence study of their own, and five of them carry nearly half of the projected 2050 burden.</p>
+
+  <h2 id="s-map">Projected cases in 2050, and where the evidence is missing</h2>
+  <div class="map" id="map"></div>
+  <div class="keys" id="mapKeys"></div>
+  <p class="note">Hatched countries have no population-based prevalence study. Select a country on the map to show its figures.</p>
+
+  <div class="panel" id="s-country">
+    <label for="country">Country</label>
+    <select id="country" aria-label="Choose a country"></select>
+    <div class="figures">
+      <div class="fig"><span class="year">2025</span><span class="big" id="v25"></span><span class="range" id="r25"></span></div>
+      <div class="fig"><span class="year">2050</span><span class="big" id="v50"></span><span class="range" id="r50"></span></div>
+      <div class="fig"><span class="year">Change</span><span class="big" id="chg"></span><span class="range">2025 to 2050</span></div>
+    </div>
+    <p class="evidence" id="evidence"></p>
+    <div class="actions">
+      <button id="copyFig"></button>
+      <button id="copyCite">Cite this</button>
+    </div>
+    <p class="toast" id="toast" aria-live="polite"></p>
+  </div>
+
+  <h2 id="s-rank">Ranked by projected cases in 2050</h2>
+  <div class="chart" id="chart"></div>
+  <div class="keys">
+    <span><svg viewBox="0 0 22 12"><rect width="22" height="12" fill="#17233B"/></svg>Population-based study available</span>
+    <span><svg viewBox="0 0 22 12"><defs><pattern id="lg" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2.2" height="5" fill="#17233B"/></pattern></defs><rect width="22" height="12" fill="url(#lg)"/></svg>No population-based study</span>
+    <span>Solid segment is 2025, lighter extension is the growth to 2050.</span>
+  </div>
+
+  <h2 id="s-table">All 21 countries</h2>
+  <div class="tablewrap">
+    <table id="table">
+      <thead>
+        <tr>
+          <th><button data-k="name">Country</button></th>
+          <th><button data-k="y25" aria-sort="none">2025</button></th>
+          <th>Range</th>
+          <th><button data-k="y50" aria-sort="descending">2050</button></th>
+          <th>Range</th>
+          <th><button data-k="chg" aria-sort="none">Change</button></th>
+          <th>Population-based study</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr>
+          <td>All 21 countries</td>
+          <td>13,114,311</td><td class="range" id="tr25"></td>
+          <td>18,504,759</td><td class="range" id="tr50"></td>
+          <td>+41.1%</td><td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <p class="note">Ranges apply the 95% confidence limits of the pooled prevalence, rounded to the nearest hundred. Click a column heading to sort.</p>
+  <div class="actions" style="margin-top:14px">
+    <button id="csv">Download CSV</button>
+  </div>
+
+  <div class="methods">
+    <h2 id="s-methods">How these numbers were made</h2>
+    <p>A single pooled prevalence of 2.34% (95% CI 1.61 to 3.39), from 13 population-based studies of 19,746 people, was applied to each country's United Nations projected population aged 10 and over. The figures therefore do not reflect country-specific prevalence, which could not be estimated for most countries. Differences between countries come from population size and age structure, not from any difference in disease frequency.</p>
+    <p>The protocol was registered on PROSPERO. Full methods, sensitivity analyses and the age-structured projections are in the full paper, which is under peer review at <i>Cornea</i>.</p>
+  </div>
+
+  <footer>
+    Abdullah Bousamri, Department of Ophthalmology, Jordan University of Science and Technology.
+    <a href="https://orcid.org/0009-0005-7190-698X">ORCID 0009-0005-7190-698X</a>
+  </footer>
+</main>
+
+<nav class="rail" aria-label="Page tools">
+  <button id="railOutline" aria-haspopup="dialog" aria-expanded="false" aria-controls="outlinePop"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="4.5" cy="6" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.1" fill="currentColor" stroke="none"/><path d="M9 6h11M9 12h11M9 18h11"/></svg><span>Outline</span></button>
+  <button id="railCite" aria-haspopup="dialog" aria-expanded="false" aria-controls="citePop"><span class="q" aria-hidden="true">&#8221;</span><span>Cite</span></button>
+  <button id="railData"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 17v3h16v-3"/></svg><span>Data</span></button>
+  <button id="railShare"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M8.2 10.9l7.6-4.7M8.2 13.1l7.6 4.7"/></svg><span id="shareLabel">Share</span></button>
+  <a id="railPaper" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6zM15 2v5h5M9 13h7M9 17h7"/></svg><span id="paperLabel">Paper</span></a>
+</nav>
+
+<div class="pop small" id="outlinePop" role="dialog" aria-label="On this page" hidden>
+  <div class="citepop-head"><span>On this page</span><button class="citepop-x" data-close aria-label="Close">&times;</button></div>
+  <ul class="outline">
+    <li><a href="#s-map">Map of projected cases</a></li>
+    <li><a href="#s-country">Country figures</a></li>
+    <li><a href="#s-rank">Ranked by 2050 cases</a></li>
+    <li><a href="#s-table">All 21 countries</a></li>
+    <li><a href="#s-methods">How the numbers were made</a></li>
+  </ul>
+</div>
+
+<div class="pop" id="citePop" role="dialog" aria-label="Cite this work" hidden>
+  <div class="citepop-head">
+    <span>Cite this work</span>
+    <button class="citepop-x" data-close aria-label="Close">&times;</button>
+  </div>
+  <div class="citepop-tabs" role="tablist" id="citeTabs"></div>
+  <pre class="citepop-text" id="citeOut" tabindex="0"></pre>
+  <div class="citepop-foot">
+    <button id="citeCopy">Copy</button>
+    <span class="citepop-note">Journal and DOI are filled in on publication.</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MAP = {"W":720,"H":420,"study":[{"name":"Yemen","d":"M546,292.4L542.1,293.8L540.2,295.3L539,298L539.3,300.4L534.6,302.9L526.3,305.3L523.5,306.8L521.5,307L517.2,308.5L514.9,309.9L512,313.2L506.8,313.2L502.3,316.3L495.3,318.2L488.8,318.8L484,322.9L480.8,322.9L478.8,324.1L475.5,324.5L472,322.8L470.1,319.4L470.5,316.4L469,313.5L468.5,309.2L467.2,304.5L465.7,303.8L466.8,302.6L466.1,300.4L467.1,297.4L466.8,294.6L469.6,292.1L469.2,290L469.8,286.7L471.5,285.4L475.4,287L477.2,286.4L484.8,286.1L486.8,287L493.8,287.7L496.7,287.4L498.9,290L502.5,288.7L503.6,286L508.2,280.2L516,276.5L537.5,273.4L543.3,287.2ZM465.1,303.2L465.1,303.2L465.1,303.2ZM466.4,315.9L466.4,315.9L466.4,315.9ZM466.7,313.8L466.7,313.8L466.7,313.8ZM551.2,324.4L554.5,324.1L557,325L554,326.5L550,326.7L547.8,325.2L548.7,324.2Z","cx":503.5,"cy":298.2,"w":92,"h":53},{"name":"United Arab Emirates","d":"M570.8,217.9L571.5,223.7L569,225.7L568.5,223.9L566.9,224.6L566.6,229.9L568.4,231.4L564.4,232.4L564.7,234.3L562.3,240.1L562.2,242.8L561.7,243.5L541.9,240.9L534.4,230.9L534.3,229.5L535.8,229.8L536.9,232.1L539.6,232L542.6,230.6L552.2,231.3L556.1,229.6L558.8,225.1L561.5,223.1L564.8,219.2L568,216.7L569.1,214.4L569.6,217.6ZM570.6,221.5L570.6,221.5L570.6,221.5ZM547.9,229.8L547.9,229.8L547.9,229.8ZM542.4,229.5L542.4,229.5L542.4,229.5ZM552.5,230.5L552.5,230.5L552.5,230.5ZM556.7,228.2L556.7,228.2L556.7,228.2Z","cx":555.3,"cy":232.8,"w":37,"h":29},{"name":"T\u00fcrkiye","d":"M337.1,84.4L337.1,84.4L337.1,84.4ZM456.8,70.3L464.2,71.1L466.7,69.8L471.7,74.5L473.9,78.5L472.7,80.9L473.8,84.1L476,85.6L478.2,85.3L481.9,88.7L482.3,89.2L480.5,88.1L479,91.5L476.2,92L478.1,97.3L478.5,101.9L479.3,102.1L477.6,106.5L480.3,108.1L480.4,111.1L481.9,113.9L480.7,113.6L478.2,115.5L477.2,112.5L472.3,112.9L469,111.7L466.6,111.7L463.4,114.2L462.7,112.6L456.9,114.4L450.6,114.3L445.3,117L440.2,118.3L435.7,118.2L431.3,116.2L425.4,118.7L422.6,118.6L419.4,117.2L418.5,120.5L419.3,122.6L417.3,123.2L415.6,126.5L413.6,125.7L412.9,121.9L415.8,118.6L414.8,116.2L409.7,119.4L405.2,117.2L403.6,117.4L399.1,121.6L396.6,123.1L389.7,124.5L386.5,123.1L383.7,119.8L378.6,117.2L373.1,116.6L371.1,122.6L369.9,121.9L365.7,123.4L361.6,121.1L360.7,118.2L355.1,117.1L350.1,118.4L348.5,118.1L352.2,117.1L354.6,115L347.7,115.1L349.2,113.7L346.7,111.5L345.6,108.6L346.8,108.2L346.8,105.8L342.6,103.6L339.6,102.9L341.3,99.4L341.9,101.5L345.8,101.5L343.2,98.6L345.1,96.8L342.6,92.8L343.7,90.1L338.2,91.1L338.7,85.8L343,81.7L347.2,81.1L348.7,82.5L351.6,81.9L357.6,81.9L360.9,81.5L358.8,80.3L360.1,79.4L367,78.3L363.2,77.6L360.8,75.5L362.9,73.3L367.5,74.1L370.8,73.6L374.4,74.7L377.8,74.5L379.4,72.3L385.9,68.1L394.2,65.1L404.7,65.8L406.7,64.7L409,68.1L411,69.1L414.8,68.6L415.8,71.2L418.3,72.9L420.4,71.9L422.6,73.7L428,74.8L432.7,76.4L440.8,74.5L443.7,75.8L447.2,76L452.6,73.4ZM352.8,65.6L352.6,66.8L355.4,70.8L360.9,73.3L358.8,75.9L354.1,74.8L348.9,75.9L347,78.8L343.3,80.7L338.9,85L339.3,82.6L343.4,79.4L338.1,79.6L337.6,78.4L339.9,76.1L339.9,73.2L342.1,71.5L341.8,69.5L339.8,68.3L341.8,65.9L347.3,64.5L349.2,66.1Z","cx":408.1,"cy":94.4,"w":145,"h":62},{"name":"Tunisia","d":"M225.6,151.2L225.3,156.2L225.6,158.3L220.4,161.3L214.9,166.9L215.9,170.8L215.7,173L213.2,176.6L210.4,178L206.7,161.4L201.2,157.1L199.2,152.1L196.6,150.5L194.8,145.2L194.9,142.9L200.5,136.8L201.7,132.4L200.5,126.1L201.3,121.4L200.3,120.1L203.1,115.9L207.4,113.4L211.7,112L215.6,113.3L215.5,115L217.2,117.9L218.5,116.4L222.2,114.6L222.7,116.5L220.2,120.2L218.1,121.8L218.6,125.9L221.8,128.3L222.7,132.1L218.2,138.6L214.6,141.7L215.3,145.1L217.5,146.8L219.5,146.6L219.6,148.2L222.4,147.7L223.3,150.6ZM223.9,136.6L223.9,136.6L223.9,136.6ZM221.4,146.3L219.6,146.1L221.2,144.7Z","cx":210.6,"cy":142.7,"w":31,"h":66},{"name":"Syria","d":"M413.6,125.7L415.6,126.5L417.3,123.2L419.3,122.6L418.5,120.5L419.4,117.2L422.6,118.6L425.4,118.7L431.3,116.2L435.7,118.2L440.2,118.3L445.3,117L450.6,114.3L456.9,114.4L462.7,112.6L463.4,114.2L459,119.2L456.1,120L454.8,124.2L455.6,128.3L454.6,131.6L454.4,136.5L452.8,139.7L450.5,140.6L435.7,149.5L420.7,159.2L417.2,158.5L412.7,155.4L413.7,153.4L413.4,148.9L415.1,145.2L418.9,141.6L417.7,138L414.2,137.8L413.6,135.7L413.9,132.2L412.6,128.9Z","cx":433.5,"cy":134.2,"w":51,"h":47},{"name":"Sudan","d":"M399.6,349.3L398.1,349.3L398.7,346.3L398.1,343.5L392.6,338.4L391.8,332.6L392.8,327.7L389.1,327.6L389.2,329.3L384.1,329.3L386.1,331.6L386.7,336.8L383,339.9L380.9,343.4L377.6,346.7L373.8,347.1L368.2,342.9L365.1,344.6L364.1,346.9L360.3,348.3L359.3,350.3L353.1,350.3L351.8,348.2L345.6,348.1L341.6,348.8L336.7,343.7L335.8,341.8L330.1,342.8L328,346.8L326,353.8L323.1,355.5L318.4,354.3L317.8,352L319,350.2L319.2,346.5L316.6,342L313.1,337.9L313.6,334.5L310.8,332L309.2,324.2L306.5,324.1L305.2,323.2L306.4,320.6L308.3,318.9L307.3,315.7L307.9,314.3L310.4,312.5L309.5,309.2L311.7,307.8L313.7,304.3L313.7,301.4L315,300L321.8,299.4L321.8,269.3L321.8,265.2L329.5,265.2L329.5,248.7L375.3,247.8L421.1,248.7L421.5,252.1L423.7,255.4L423.2,256.1L423.8,260.6L423.6,264.2L424,268.6L425.7,274.8L429.2,277L431.3,279.5L434.5,281.5L431.5,285L428.3,285.8L426,287.3L425.2,289.1L422.2,289.1L421.2,292.6L421.4,295.2L418.4,303.6L417.7,304.6L418.4,311.5L417.4,316.5L416,319.3L415.2,323.6L411.3,325.1L407.5,330.8L406.4,335.1L406.2,338.3L404.9,339.2L403.4,338.2L401.1,340.9L401.2,344.1Z","cx":367.5,"cy":297.6,"w":129,"h":108},{"name":"Saudi Arabia","d":"M421.3,220.2L421.3,220.2L421.3,220.2ZM460.5,291.9L459.1,291.4L459.5,289.6ZM537.5,273.4L516,276.5L508.2,280.2L503.6,286L502.5,288.7L498.9,290L496.7,287.4L493.8,287.7L486.8,287L484.8,286.1L477.2,286.4L475.4,287L471.5,285.4L469.8,286.7L469.2,290L469.6,292.1L466.8,294.6L466,291.7L463.6,288.6L462.9,286.1L458.7,282.4L456.2,277.8L454.7,276L453.8,272.7L451,267.2L445.8,263L444.3,262.8L442.2,260.9L438.2,254.4L438.6,252.7L437.4,249.7L438.2,245.4L437.6,242.3L435.2,237.8L432,232.7L429.2,230.4L426.3,229.5L423.5,225L424.1,223.8L423.2,221L420.2,217.1L419.6,214.6L418.4,214.1L416.3,209.8L411.1,202.6L408.1,197.3L403.7,196.4L405,193.2L406.3,185.8L414.5,187.2L418.1,184.5L420.2,181.2L425.7,180.1L427,177.2L429.6,175.6L421.8,166.7L437.5,162L438.6,160.9L448,162.6L461.2,170.4L467.2,175.6L481.3,187.1L494.2,188.3L495.5,188L502.5,189L504.3,193L510.2,192.9L512.8,198L513,200.1L516.4,202.1L517.7,204.8L522.1,207.8L522.5,210.4L523.9,212.3L522.5,214L524.4,218.7L525.8,219.9L526.5,222.8L528.4,225.3L529.7,227.1L532,226.8L532.3,229.1L534.3,229.5L534.4,230.9L541.9,240.9L561.7,243.5L562.2,242.8L565.7,248.7L560.6,265.2ZM419,217.4L419,217.4L419,217.4Z","cx":481.1,"cy":231.2,"w":162,"h":134},{"name":"Qatar","d":"M532,226.8L529.7,227.1L528.4,225.3L528.1,219.7L530,215.1L532,213.6L534.1,215.8L533.7,219L534.6,222.2L533.2,226.3Z","cx":531.3,"cy":220.8,"w":6,"h":13,"label":{"x":536.1,"y":224.4,"anchor":"start","ok":2}},{"name":"Oman","d":"M589.4,263.4L588.8,262.4L590.7,259.6L591.2,261ZM546,292.4L543.3,287.2L537.5,273.4L560.6,265.2L565.7,248.7L562.2,242.8L562.3,240.1L564.7,234.3L564.4,232.4L568.4,231.4L566.6,229.9L566.9,224.6L568.5,223.9L569,225.7L571.5,223.7L573.4,228L575.5,230.7L577.9,232.6L580.9,233.6L588.3,235L589.8,236L591.8,239.3L595.7,243.9L597.9,244.5L597.7,246.9L594.4,252.8L590.8,256L587.5,261.9L584.7,260.5L582.8,263.2L581.7,268.4L582.4,273.2L577.5,274.2L573.5,276.7L572.7,280.2L570.5,281.9L564.4,282.8L562.7,284.8L563,286.5L561.3,289.3L553.6,289.5L550,291.5ZM570.8,217.9L569.6,217.6L569.1,214.4L571.8,212.1ZM570.6,221.5L570.6,221.5L570.6,221.5Z","cx":568.9,"cy":260.4,"w":60,"h":80},{"name":"Morocco","d":"M119.9,133.4L123.2,136.7L123.7,139.3L124.1,150L125.4,154.1L128.8,157.8L127.5,159L127.2,161.2L118.1,160.9L114.4,161.7L113.8,163.6L107.5,165.1L107.5,169.3L109.1,170.5L103.7,173.8L98.7,175.9L97.1,178.6L95,180.4L92.5,181.2L86.9,181.7L85.9,183.9L82.4,183.4L77.8,185.8L70.3,191.4L70.1,200.6L69.1,200.6L69.3,205.3L64.5,205.6L62,207.5L58,207.5L55.7,206.4L52.8,206.2L49.2,207.4L49.7,209.5L46.7,214.1L44.3,214.7L41.2,224.9L36.4,228.6L34.5,232.1L30,234.5L28.8,237.5L27.4,246.1L24.3,249.9L24,252L22.7,253.2L15.7,252.9L8.1,253.1L6,253.5L6.6,249.5L8.5,246.4L11,243.7L12.1,239.5L15.2,234.1L14.5,233.3L21.1,227.3L22.6,224.6L23,220L26,212.8L32.4,208.6L35.5,200.7L37.3,198.4L44.7,196.5L48.9,194.3L51.6,191.4L56.2,188.3L61.1,181.7L62.5,179.1L62.6,176L60.9,173.6L61.4,167.3L62.5,164.7L65,161.3L65.8,156.8L70.8,151.2L73.1,149.5L78.8,147L83.9,144L88.1,136.4L91.4,126.9L96.3,125.8L95.9,127.3L99.7,131.7L103.7,132.8L108.6,131.7L112.3,132.1L114.1,130.5L115.1,133.1Z","cx":69.7,"cy":182.1,"w":123,"h":128},{"name":"Libya","d":"M210.4,178L213.2,176.6L215.7,173L215.9,170.8L214.9,166.9L220.4,161.3L225.6,158.3L225.3,156.2L225.6,151.2L231.6,154.2L235.3,154.8L239.3,153.7L246.7,155.8L248.8,157.4L253.9,158.5L255.4,160.6L256.4,165.2L258,167.3L261.2,168.7L266.3,169.2L270.7,170.4L277.2,173.1L282.9,177.4L285.6,177.5L288.9,175.7L291.2,172.9L292.3,170.4L290.5,163.7L292,160.1L294,158.1L299.3,155L302.1,154.8L303.7,153.5L308,153.7L314.9,156.4L315,159L316.4,160.1L320.4,160.6L322.9,162L327.2,161.9L329.8,163.1L330.8,165.2L328.5,168.1L329.4,173.1L327.3,178.2L329.5,187.3L329.5,248.7L329.5,265.2L321.8,265.2L321.8,269.3L260.1,236.6L252.4,240.4L246.6,243.5L240.9,238.8L229.2,236L225.7,229.3L219.3,227.3L217.4,227.9L216,227L214.3,223.1L214.1,220.7L209.8,214.4L210.1,212.1L213,210.2L213.2,207.7L212.1,203.5L213.4,199.5L212.6,192.8L212.9,189.2L211.3,183.3L208.8,179Z","cx":276.2,"cy":206.1,"w":122,"h":118},{"name":"Lebanon","d":"M414.2,137.8L417.7,138L418.9,141.6L415.1,145.2L413.4,148.9L409.8,152.2L407.5,152.2L410.6,144.8L411.7,141.4Z","cx":413.3,"cy":144.4,"w":11,"h":14,"label":{"x":407.3,"y":143.8,"anchor":"end","ok":true}},{"name":"Kuwait","d":"M508.9,183.4L507.4,181.8L508.3,180.2L509.5,182ZM510.2,192.9L504.3,193L502.5,189L495.5,188L498.4,184.1L500.3,180L504.3,179.2L506.7,180.2L507.9,183.8L506.6,183.4L504.7,185.2L507.2,185.8L508.3,189.1Z","cx":503.6,"cy":186,"w":15,"h":14,"label":{"x":511.5,"y":187,"anchor":"start","ok":1}},{"name":"Jordan","d":"M412.7,155.4L417.2,158.5L420.7,159.2L435.7,149.5L437.9,157.6L437.8,159.3L439.4,158.9L438.6,160.9L437.5,162L421.8,166.7L429.6,175.6L427,177.2L425.7,180.1L420.2,181.2L418.1,184.5L414.5,187.2L406.3,185.8L406.5,184L407.8,178.8L407.8,176.3L410.1,169.9L410.1,166.8L411,164.2L410.9,158.4L411.1,156.2Z","cx":420.2,"cy":169,"w":33,"h":38},{"name":"Palestine","d":"M402.6,165.8L400.9,169.2L400.5,168.2ZM410.9,158.4L411,164.2L410.1,166.8L405.7,167.5L406.3,165.7L408.2,164.3L406.6,162.8L406.3,160.6L408.2,157.2Z","cx":408.4,"cy":162.7,"w":10,"h":12,"label":{"x":394.6,"y":160.6,"anchor":"end","ok":true}},{"name":"Iraq","d":"M463.4,114.2L466.6,111.7L469,111.7L472.3,112.9L477.2,112.5L478.2,115.5L480.7,113.6L481.9,113.9L484,119.8L485.6,121.5L486.5,124.7L489.3,126.4L492.7,126.6L491.2,129.8L492.4,133.1L488.9,136.2L488.6,138.3L487.1,139.8L487.8,142.3L486.8,144L489.4,147.4L490.5,147.3L492.6,150.8L492.3,153.3L494.3,153.6L500.1,157.8L502,158.2L505.5,163.9L504.4,167.5L504.4,171.1L506.9,171.2L506.9,175.9L509.8,178L511,180.4L506.7,180.2L504.3,179.2L500.3,180L498.4,184.1L495.5,188L494.2,188.3L481.3,187.1L467.2,175.6L461.2,170.4L448,162.6L438.6,160.9L439.4,158.9L437.8,159.3L437.9,157.6L435.7,149.5L450.5,140.6L452.8,139.7L454.4,136.5L454.6,131.6L455.6,128.3L454.8,124.2L456.1,120L459,119.2Z","cx":474.3,"cy":152.8,"w":75,"h":77},{"name":"Iran","d":"M569.9,207L568.1,208.9L564,209.9L563.4,209.4L570.1,206.3ZM552.4,112L554.5,112.1L558.8,110.4L561.3,106.5L565.2,104.6L570.2,104.9L571.9,103.1L577.6,103.4L578.8,105.7L584.7,107.7L587.2,109.1L590.2,108.7L593.9,110.3L595.9,113.6L598.9,114.9L601.9,118.8L607.9,118.7L608.3,119.4L609,128.5L608.1,133.4L606.6,137.6L604.9,139.1L606.1,140.7L604.2,140.8L603,142.8L603.2,147L606.4,148.3L603.6,151.7L605.7,159.8L605.4,165.1L605.9,166.7L612.1,167.6L613.3,170.4L613,172.6L605.8,181.3L609.4,185.6L611.8,190.7L613.8,192.9L617.4,194L619,195.6L620.5,195.4L620.9,202L620.5,204L623.7,204.2L624.7,205.3L623.7,209.2L618.1,210.1L616.5,211.9L613.7,212.9L612.2,216.9L611.5,221.8L610.2,222.6L604.4,221.1L596.3,220L595.1,219.4L591.9,219.9L590,218.8L585.4,218.4L578.8,216.7L577,211.8L576,207.2L574.7,205.6L571.2,204.6L565.8,206.5L560,210.2L558,210.6L555,209L550.8,208.7L548.9,206.8L543,203.5L541.3,201L537.9,199.2L535.1,199L532.1,196.5L530.4,191.3L528.9,190L529,188.3L527.4,187.6L527.3,185.2L523.5,180.7L522.8,178.3L518.8,179.8L515,177.3L516.3,175.8L514.5,175.5L513.9,179L511,180.4L509.8,178L506.9,175.9L506.9,171.2L504.4,171.1L504.4,167.5L505.5,163.9L502,158.2L500.1,157.8L494.3,153.6L492.3,153.3L492.6,150.8L490.5,147.3L489.4,147.4L486.8,144L487.8,142.3L487.1,139.8L488.6,138.3L488.9,136.2L492.4,133.1L491.2,129.8L492.7,126.6L489.3,126.4L486.5,124.7L485.6,121.5L484,119.8L481.9,113.9L480.4,111.1L480.3,108.1L477.6,106.5L479.3,102.1L478.5,101.9L478.1,97.3L476.2,92L479,91.5L480.5,88.1L482.3,89.2L485.2,93.6L488.1,96L492.3,96.9L495.2,96.7L498,94.2L505.1,89.3L506.8,88.9L509.3,91.8L507.9,92.6L508.7,95.9L507,97.5L511.4,101.5L513.5,101.3L514.2,106.6L515.2,108.8L518.2,110.5L523.2,111.4L526.3,115.2L530.9,117.8L535.8,119L539.1,118.9L548.2,116.6L552.8,117Z","cx":556.5,"cy":157.3,"w":149,"h":135},{"name":"Egypt","d":"M421.1,248.7L375.3,247.8L329.5,248.7L329.5,187.3L327.3,178.2L329.4,173.1L328.5,168.1L330.8,165.2L332.6,166.5L336.5,165.5L346.9,167.7L349.2,169.2L352.5,170.2L356.7,170.6L360.2,172.4L363.7,171.7L367.6,169L369.9,168.8L371.2,167L375.3,166L372.5,167.3L375.9,166.9L376.3,165.8L379.9,167L382.7,166.2L381.8,168.5L384.4,170.3L386,168.8L388.2,170.5L392.3,169.6L392.8,170.3L398.2,169.5L400.5,168.2L400.9,169.2L404,178.3L405.9,184.7L404.6,186.5L403.7,191L402.4,194.5L402,197.5L400.7,199.7L397.1,197.2L393.2,192.7L391.8,188.2L389.1,184.3L387.9,180.3L386.3,183.3L387.9,185.5L388.4,189L390.5,192.7L395.5,198.5L395.5,201.1L398.1,205.9L398.6,209.4L403.3,217.6L408.2,227.9L412.7,232.5L410.8,232.6L410.7,236.6L412,240.8L413.7,242.5L416.1,243.5Z","cx":367.1,"cy":210.6,"w":94,"h":84},{"name":"Bahrain","d":"M526.9,216L525.8,215.2L526.8,212.9Z","cx":526.5,"cy":214.7,"w":1,"h":3,"label":{"x":534.5,"y":208.7,"anchor":"start","ok":1}},{"name":"Algeria","d":"M203.1,115.9L200.3,120.1L201.3,121.4L200.5,126.1L201.7,132.4L200.5,136.8L194.9,142.9L194.8,145.2L196.6,150.5L199.2,152.1L201.2,157.1L206.7,161.4L210.4,178L208.8,179L211.3,183.3L212.9,189.2L212.6,192.8L213.4,199.5L212.1,203.5L213.2,207.7L213,210.2L210.1,212.1L209.8,214.4L214.1,220.7L214.3,223.1L216,227L217.4,227.9L219.3,227.3L225.7,229.3L229.2,236L194.7,258L182,269.5L181.3,269.8L169.6,272.2L163.2,273.5L160.9,272.1L162.1,270L161.7,266.9L159.1,265.6L155.6,264.7L154.1,263.2L150,262.1L149.4,260.6L146,258.5L145.8,256.1L102.2,225.1L99.9,223.5L94.5,219.9L70.1,203.9L70.1,200.6L70.3,191.4L77.8,185.8L82.4,183.4L85.9,183.9L86.9,181.7L92.5,181.2L95,180.4L97.1,178.6L98.7,175.9L103.7,173.8L109.1,170.5L107.5,169.3L107.5,165.1L113.8,163.6L114.4,161.7L118.1,160.9L127.2,161.2L127.5,159L128.8,157.8L125.4,154.1L124.1,150L123.7,139.3L123.2,136.7L119.9,133.4L122.3,133.4L126.7,130.9L128.6,128.9L133.7,126.2L137.4,125.8L138.2,124.3L141,122.4L146.7,119.9L157,119.1L159.9,117.4L164.1,117.3L166.1,116.3L173.7,116.3L177.1,118.4L178.8,118.4L185.1,115.9L187,114.5L190.4,116.1L192.8,115.6L192.5,114.4L198,116.7Z","cx":157.3,"cy":197.1,"w":159,"h":159},{"name":"Afghanistan","d":"M649.5,111.9L653.8,112L655.7,113.3L659.1,113.6L661.4,115.8L666.1,112.8L668.3,112.1L670.7,114.2L671.8,113.3L672.4,109.9L678.3,108.8L678,106.3L681.1,102.3L683.1,101.1L686,102.6L686.5,106.5L688.3,106.2L687.4,114.1L688.6,117.9L690.2,118.2L694.5,115.5L696.8,115L698.6,112.7L703.2,110.7L705,111.2L705.2,113.1L709.1,111.3L712.2,111.5L714,113.1L712.8,112.5L710,113.8L711.3,115.1L707.1,117L705.4,116.4L696.5,116.9L692.9,118.2L690,120.7L688.8,120.7L685.5,124.5L686.7,125.4L688.4,129.2L688.8,132.6L683.8,138.7L684.8,140.2L684.4,143.2L679.5,144.1L676.3,143.2L675.3,144.6L677.4,147.2L678.3,150.3L675.7,151.9L672.5,152.7L670.5,158.1L670.8,162.6L667.6,165.4L665.5,163.8L662.2,163.8L657.7,166.5L658.9,168L655.4,169.1L652.6,168.3L648.6,171.9L647.7,174.6L647.9,177.2L646.9,181.5L639.2,183.8L634.1,183.9L630.9,185.4L626.8,184.5L618.4,185.3L605.8,181.3L613,172.6L613.3,170.4L612.1,167.6L605.9,166.7L605.4,165.1L605.7,159.8L603.6,151.7L606.4,148.3L603.2,147L603,142.8L604.2,140.8L606.1,140.7L604.9,139.1L606.6,137.6L608.1,133.4L609,128.5L611.2,130L614.2,130.1L617.1,132.7L620,131.9L622.8,130.1L623.2,126.6L629,124.8L634,121.6L636.4,114L638.5,113L642.1,112.9L643.7,109.8L646.4,111.3Z","cx":644.9,"cy":145.3,"w":111,"h":84}],"context":["M683.6,62.7L677.7,69.8L700.3,77.8L689.4,84.2L683.7,83.3L679.3,81.2L679.7,75.4L674.1,79.1L664.5,90.4L655.9,93.3L661.7,96.1L663.2,105.3L659.1,113.6L649.5,111.9L650.3,106.2L642.5,103.2L619.7,87.2L614,74.7L602.8,73.3L598.2,62.3L588.4,57.2L575.9,66.8L576.3,72.9L568.3,72.3L568.3,33.5L587.3,27.5L607,40L614.6,49.7L637.1,47.3L644,56.2L645.6,65.3L649.3,65.4L651.8,74.2L660.4,73.6L665.5,79.1L669.1,71.9ZM681.4,76.3L681.4,76.3L681.4,76.3ZM685.6,86.8L685.6,86.8L685.6,86.8ZM690,86.3L690,86.3L690,86.3Z","M431.4,10.2L413,15.5L405.5,20.3L406.7,25.4L395.8,21.4L381.9,18.9L388,15.6L374.3,16.3L365.9,30.6L354.4,28.5L361.6,16.6L366.9,18.6L367.2,13.2L361.7,6.1L361.2,0.1L349.3,-5.7L342.1,-3.1L328.8,3.1L315.3,-1.2L313.3,0.5L307.5,-4.8L310.7,-12.6L311.5,-18.1L322.7,-33.8L318.9,-42.1L324.7,-46.5L336.8,-47L347.1,-43.3L372.3,-43.1L381.7,-49.4L396.9,-52.5L402,-45.4L400.8,-38.7L407.2,-38.2L409.8,-30.1L419.1,-26.1L425.3,-28.6L445.4,-18.8L442.8,-11.9L443.2,1.6L432,4.9ZM383.7,20.2L383.7,20.2L383.7,20.2Z","M398.2,430.2L372.1,430.7L364.9,433.2L367.7,416.2L377.8,406.8L373.8,403.6L374.6,395.6L377,393.3L384.8,395.3L395,393.6L398.8,390L405.9,403.4L406.4,409.9L398.5,421.2Z","M546.2,97.7L546.2,97.7L546.2,97.7ZM568.3,72.3L576.3,72.9L575.9,66.8L588.4,57.2L598.2,62.3L602.8,73.3L614,74.7L619.7,87.2L642.5,103.2L650.3,106.2L649.5,111.9L643.7,109.8L636.4,114L634,121.6L623.2,126.6L617.1,132.7L609,128.5L607.9,118.7L601.9,118.8L593.9,110.3L571.9,103.1L561.3,106.5L552.4,112L552.2,97.1L546.6,93.1L549.1,86.7L544.6,86.6L544.9,75.2L551.2,79L558.5,76.7L551.9,64.4L545.1,65.6L544.3,73.5L541.5,67.6L554,61.8L565,72.9Z","M144,337.3L142.9,342L147.3,345.1L149.3,352.5L149.5,374.5L146.2,375.5L141,369.6L142.3,358.3L138.8,349.3L139.9,342.8L136.5,336.3Z","M441.3,470.2L441.3,470.2L441.3,470.2ZM444.2,460.4L444.2,460.4L444.2,460.4ZM390.6,495.3L383.1,492.6L373.9,485.9L370.6,478.2L365.9,473.6L363.6,456.8L366,456.9L374.2,447.8L372.4,441L374.4,434.6L372.1,430.7L398.2,430.2L427,446L428.2,450.8L439.2,458.7L436.5,471.4L441.5,477.5L439.8,487.8L443.5,499.3L448.8,503.6L445.1,506.4L425,513.4L412.7,511.4L406.3,512.3L402.6,499.6ZM443,484.2L443,484.2L443,484.2Z","M659.1,113.6L663.2,105.3L661.7,96.1L655.9,93.3L664.5,90.4L674.1,79.1L679.7,75.4L679.3,81.2L683.7,83.3L671,86.1L670.9,90.5L687.7,89.7L690.2,93L704.3,91.3L705.6,99.6L712.9,100.6L714,113.1L703.2,110.7L690.2,118.2L687.4,114.1L688.3,106.2L683.1,101.1L678.3,108.8L661.4,115.8ZM681.4,76.3L681.4,76.3L681.4,76.3ZM681.7,87.5L681.7,87.5L681.7,87.5Z","M398.8,390L395,393.6L384.8,395.3L377,393.3L374.6,395.6L365.7,387.1L354.2,389L348.1,383.1L340.1,371.3L331.1,364.4L323.1,355.5L326,353.8L330.1,342.8L335.8,341.8L341.6,348.8L351.8,348.2L359.3,350.3L368.2,342.9L377.6,346.7L386.7,336.8L384.1,329.3L392.8,327.7L392.6,338.4L398.1,343.5L399.6,349.3L399.7,356.2L393.1,357.6L391.4,361.1L396.4,363.2L404.4,371.1L408.7,380.1Z","M149.3,99L149.3,99L149.3,99ZM161.2,87.9L160.7,92.7L155.3,89.6ZM170.1,87.3L170.1,87.3L170.1,87.3ZM148.1,96.5L148.1,96.5L148.1,96.5ZM123.2,50.6L125.6,54.1L148,59.1L150.1,60.1L161.8,60.8L162,65.9L153.1,72.7L145,75L134.5,90.6L138.6,98.1L120.2,117.7L103.4,118L93.7,124.6L87,115.7L79.9,113.6L82.9,105.1L80.4,101.1L83.1,95.2L78.9,89.1L82.8,88.6L83.6,75.5L89.2,70.1L86,65.9L69.4,65.9L65.9,55.1L77.7,46.8L81.1,48.6L102.2,50.5ZM11.2,194.3L11.2,194.3L11.2,194.3ZM31.4,189.7L31.4,189.7L31.4,189.7ZM27.6,196.2L27.6,196.2L27.6,196.2ZM18.4,196.4L18.4,196.4L18.4,196.4ZM4.6,197.5L4.6,197.5L4.6,197.5ZM-0.8,199.3L-0.8,199.3L-0.8,199.3ZM-0.4,193.3L-0.4,193.3L-0.4,193.3Z","M457,435.6L452.7,429.2L452.6,400.8L459.7,391.8L476.2,384.3L483.3,384.6L506.7,360.7L514,349.4L514,335.2L531.9,330.7L528.6,349.5L517.2,368.5L514.9,374.9L506.6,387.8L491.8,403.4L478.6,411.8L460.4,430Z","M57.8,356.9L48.4,369.2L40.8,365.5L35.7,359L34.6,352.5L40.7,346.2L50.7,345.3ZM40.5,365.1L40.5,365.1L40.5,365.1Z","M311.9,41.7L310.8,50.1L314,52.9L309.2,62.1L303.1,62.7L304.6,58.3L297,52.1L293.8,56.7L284.9,49.2L287.9,43.8L283.4,34.9L282.7,23.2L293,21.2L301.6,34.9Z","M42.4,307.1L44.1,316.5L49.3,321.9L49.3,326.2L42.3,326.8L31.2,324.1L19.9,324L8.2,326.6L7.9,321L20.3,317.1L30.3,318.8L21.9,315.3L9.4,316.8L4.8,308.5L9.6,298.9L11.9,293.4L26.8,293L32.6,296.5Z","M364.9,433.2L372.1,430.7L374.4,434.6L372.4,441L360.6,443.5L359.3,441.4Z","M1261,50L1261,50L1261,50ZM1264.6,48.3L1264.6,48.3L1264.6,48.3ZM1262.2,50.5L1262.2,50.5L1262.2,50.5ZM1193.9,-88.3L1193.9,-88.3L1193.9,-88.3ZM1297.2,-143.9L1297.2,-143.9L1297.2,-143.9ZM1063.6,-418.9L1063.6,-418.9L1063.6,-418.9ZM1096.5,-439.5L1096.5,-439.5L1096.5,-439.5ZM955.8,-579.6L955.8,-579.6L955.8,-579.6ZM964.6,-544.7L964.6,-544.7L964.6,-544.7ZM888.9,-522.8L888.9,-522.8L888.9,-522.8ZM883.2,-509.7L883.2,-509.7L883.2,-509.7ZM908.5,-636.1L908.5,-636.1L908.5,-636.1ZM728.4,-428.5L728.4,-428.5L728.4,-428.5ZM774.2,-446.3L774.2,-446.3L774.2,-446.3ZM790,-456.7L790,-456.7L790,-456.7ZM804.6,-472L804.6,-472L804.6,-472ZM594,-714.9L594,-714.9L594,-714.9ZM-1249.8,-321.2L-1249.8,-321.2L-1213.9,-294L-1210.1,-287.3L-1210.7,-273L-1206.4,-267.7L-1207,-282.4L-1186.6,-279.1L-1174.6,-264.3L-1177.9,-253.9L-1189.9,-250.8L-1195.8,-240.2L-1195.9,-229.8L-1217.8,-242.7L-1219.7,-251.1L-1236.8,-251.4L-1242.9,-267.7L-1248.1,-261.4L-1244.8,-252L-1249.8,-243.7L-1249.8,-243.7L-1249.8,-321.2ZM1523.8,-243.7L1522.5,-243.1L1512.4,-235.3L1493.5,-241.8L1510.2,-231L1520.5,-202L1517.1,-195.9L1503,-200.6L1474.7,-186L1465.2,-175.5L1451.5,-165.6L1449.5,-158.3L1440.8,-168.1L1423.4,-163.6L1418.5,-156.9L1418.7,-166.4L1396,-156.3L1395,-148.2L1386.2,-135.4L1388.7,-125.5L1394.6,-125.9L1391.3,-111.9L1395.4,-103.8L1385.8,-101.8L1383.1,-91.8L1385.9,-83.7L1375.7,-80.9L1368.5,-70.9L1369.9,-62.4L1359,-59.2L1355.1,-45.7L1344.7,-35.4L1339.7,-60.9L1335.5,-91.7L1338.8,-110.3L1346.4,-121.2L1345,-125.3L1355.9,-129.3L1385.2,-165.4L1398.3,-173.2L1402.1,-195.4L1411.3,-198.8L1402.5,-202.2L1395.4,-199.7L1392.9,-187.2L1388.2,-185.1L1375.6,-170.6L1368.1,-173.8L1372.2,-187.3L1362.6,-189.4L1350.2,-187.3L1331,-164.7L1324.6,-151.6L1332.4,-146.5L1318.6,-146.9L1314.9,-142.7L1302.9,-141.8L1310.1,-147L1304.1,-151.6L1289.9,-155.3L1273.5,-147.7L1265.3,-150.1L1240.2,-149.2L1231.3,-143.7L1205.3,-114.1L1197.9,-102.5L1179.1,-86.2L1183.7,-81.4L1191,-81.9L1199,-73L1194.2,-68.2L1204.6,-71.4L1205.6,-77.9L1213.4,-77.4L1226.4,-63.2L1227.1,-50.4L1220.9,-38.6L1219.6,-18.8L1216.9,-6.2L1204.7,10.6L1197.8,24.5L1183.9,40.2L1178.1,49.3L1162.9,58.1L1152.4,52.2L1143.9,62.2L1143.9,62.2L1142.7,59.7L1148.3,50.9L1146.9,34.4L1152.9,29.9L1161.2,33.1L1168.4,19.7L1170.7,7.8L1175.2,3.1L1171.7,-4.4L1158.3,2.5L1146.3,3.4L1142.9,-10.1L1134.7,-16.3L1123.2,-18.5L1114.9,-37L1110.2,-53.2L1105.1,-61.3L1089.4,-67.8L1069.1,-64.4L1062.3,-58.1L1066.8,-47.8L1062.1,-43.1L1055.1,-28.5L1055.9,-24.4L1045.2,-17.8L1036,-21.5L1025.1,-23L1017.6,-26.9L1008.1,-19L990.9,-13.7L973.8,-15.6L968.7,-22.7L948.9,-29.3L935.4,-25.3L925.1,-30.7L923.7,-40.1L906.9,-45.1L898.9,-49.6L891.7,-40L892.8,-24.6L886,-20.4L875.5,-23.8L866,-23.9L863.2,-30.3L848.5,-34.1L813.6,-13.7L809.8,-12.8L804.3,-19L793.5,-19.6L779.2,-35.7L764.7,-32.6L760.1,-39.2L753.3,-33L735.7,-65.7L727,-73L729,-79.6L710.6,-69.1L702.3,-66.6L704.7,-72.8L693.8,-77.3L684.7,-76.5L682,-91.1L668.5,-92.3L658.6,-85.3L641.5,-82L614.1,-73L606.8,-68.8L614.5,-60.1L607.4,-60.4L606.8,-53.1L599.8,-47.8L609.8,-41.2L610,-34L590.7,-32L586.6,-36.5L572.2,-36L566.9,-30.9L558,-35.9L558.1,-31.6L547.9,-41.7L540.2,-44.2L532.6,-41.6L528.4,-44.8L524.1,-39.3L511.6,-31L510.2,-21.6L501.6,-26.9L497.6,-16.1L496.5,-4.9L501.4,2.8L507.7,2.8L516.3,18.7L503.2,26.9L497.2,37.2L501.9,44.3L502.7,54.5L511.2,66.9L505.8,73.4L494.7,66.5L482.7,57.4L475.7,59.4L463.8,52.5L450.2,49.2L445,50.4L435.3,41.2L419.4,32.1L427.1,29.3L433.6,21.5L428,15.4L439.7,10.1L431.4,10.2L432,4.9L443.2,1.6L442.8,-11.9L445.4,-18.8L425.3,-28.6L419.1,-26.1L409.8,-30.1L407.2,-38.2L400.8,-38.7L402,-45.4L396.9,-52.5L381.7,-49.4L379.1,-63.3L389,-65.1L381.7,-71.2L374.3,-84.1L375.1,-94.7L353.9,-102.6L347.7,-122.1L350.8,-126.6L348.6,-141.3L352.8,-151L361.6,-158.8L356.7,-169.4L351.2,-167.2L362.4,-179.1L380,-205.4L368.2,-220.2L372,-225L365.1,-241.9L367.4,-262.8L361.1,-279.8L368,-294.2L358,-304.4L360.2,-322L374.8,-338.7L383.4,-342.5L390.8,-338L386.5,-332L413.3,-325.7L433.1,-307.9L452.6,-294.7L455.7,-284.5L449.2,-269.6L432.8,-262.3L410.6,-268.6L382.7,-283.6L405,-258.5L402.1,-249.8L405.7,-234.5L425.5,-221.3L429.4,-230.2L418.4,-239.7L421.2,-245.6L443.3,-234.8L448.6,-238.5L443.8,-253.5L462.2,-271L476.8,-261.2L479.8,-274L474.9,-284.1L477.3,-307.3L471.4,-313.2L490.6,-310.5L496.7,-297.4L487.8,-295.5L483.3,-287.4L491.3,-277.5L504.2,-279.9L505.9,-292.1L528.7,-307.8L551.5,-321.5L552.5,-309.6L557.4,-306.2L568.8,-314.1L577.1,-312.1L592,-321.7L592.3,-309.8L606.5,-321.2L600.6,-334.4L607.1,-340.2L625.2,-336.3L653.2,-318.8L663.8,-307L669.7,-320.5L661,-332L651.7,-335.9L655.4,-360.5L652.6,-373.4L663,-383.1L668.9,-407.9L673.6,-413.9L687.9,-414.3L698,-408.5L696.6,-392.9L690.7,-377.6L696.2,-370.2L695.4,-349.8L697,-318.9L703.7,-312.5L700.6,-297.7L688.3,-275.7L681.9,-271L675.4,-277.4L670.1,-272.1L691.1,-265.8L705.5,-280.3L713.1,-295.7L711.6,-316.2L726.1,-321.1L732.1,-310.3L731.6,-296L737.9,-305.9L735.3,-319.5L722.6,-326.6L707,-324L703.8,-337L709.8,-356.8L700.1,-377.3L704.6,-387.1L714.8,-394.6L713.2,-411.6L720.6,-398.4L717.4,-374.8L734.8,-370.6L739.6,-373L725,-380.9L722.8,-388.7L739.8,-389.8L733.9,-395.7L748.9,-400.5L765,-384.6L776.4,-384.7L771.3,-372.8L770.8,-356L776.6,-364.2L777,-349.8L782.1,-356L777.7,-369.1L780.9,-380.9L770.2,-396.9L759.7,-403.2L757.9,-431.8L783.1,-436.7L808.9,-440.3L798,-462.1L804.6,-463.2L812.5,-476.4L831.9,-490.5L857.8,-498.7L853.3,-505.7L877.2,-506L880.5,-499.9L897.1,-511.1L898.3,-518.9L914,-520.4L915.1,-536L931.6,-558.3L938.4,-562.1L954.1,-549.9L939.8,-539.8L964.7,-533.8L956.9,-519.9L969.3,-526.8L993.1,-527L1009.7,-511.4L1013.2,-486.2L1007,-473L983.3,-452.8L970.6,-435.2L955.1,-424.8L967.2,-421.1L991.2,-436.2L986.5,-444.2L1001,-435.6L1006.4,-442.6L1008.8,-428.8L1025.6,-435.5L1049.6,-432.4L1049.4,-423.1L1059.6,-416L1085.9,-415.4L1087,-430.8L1095.3,-436.9L1112,-425.5L1115.7,-431.2L1130,-421.6L1132.8,-408.8L1126.4,-404.4L1134.1,-398.9L1130.4,-392.9L1121.7,-401.9L1136.8,-369.5L1147.5,-360.6L1159,-389.1L1165,-378.4L1174.8,-375.9L1183.9,-381.8L1199,-372L1201.1,-380.2L1215.5,-378.4L1209.3,-395L1212.6,-403.5L1224,-405.8L1221.1,-413.7L1263.8,-402.1L1247.8,-397.4L1259.6,-396.1L1260.4,-384.6L1272.9,-399.5L1288.8,-395L1285.4,-385.9L1304.9,-373.5L1312,-362.7L1338.1,-368.9L1354.6,-367.6L1364.7,-361.7L1369.8,-350.6L1368.4,-338.7L1381.6,-329.8L1388,-335.7L1422.8,-332.4L1428.5,-337.8L1443.8,-317L1454.5,-322.5L1448,-335.2L1450.5,-346L1475.5,-341.1L1491.1,-341.4L1514.9,-329.9L1522.8,-321.8L1523.8,-321.2L1523.8,-243.7ZM502.5,-692.5L492.5,-673.2L483,-680.9ZM524.4,-696.1L535.3,-684.6L504,-657.9L496.4,-666.5ZM659.1,-510.9L633.6,-496.9L609.7,-482L592.3,-458.1L575.9,-426.3L555.4,-425.9L551.2,-437.2L558,-442.6L575,-483.1L580.8,-482.8L590.7,-498.7L606.5,-505.6L608.5,-512.4L633.7,-515.5L657.3,-536.6L667.8,-521.9ZM563.2,-424.8L571.8,-421.9L563.5,-402.7L563.1,-389.3L568.8,-374.9L581,-360.3L577.3,-357L557.7,-359.1L548.3,-363.6L554.3,-369.6L548.2,-379.6L536.2,-378.4L534.4,-392.7L539.6,-394.2L548.2,-414.4L548.1,-422.5ZM880.7,-703.4L890.8,-689.8L885.7,-663.7L860.3,-653.3L842.2,-669.1L855.5,-689.5L854,-699.1L875.1,-713.7ZM889.5,-660L889.4,-642.5L896.6,-655.3L907.9,-643.1L903.1,-604L888.6,-603.7L867.3,-614.1L854.1,-631.1L868.9,-657.2ZM929.7,-621L926,-604L935.8,-616.7L947.1,-603.4L948.4,-590.8L936.1,-581.6L902,-573.3L916.7,-618.9ZM1216,-497.9L1220.3,-492.1L1227.1,-507.7L1256.1,-490.3L1246.6,-473.9L1235.8,-476.5L1208.7,-462.4L1194.2,-476.2L1194.6,-495.4L1207.3,-509.6ZM1268,-483.7L1280.6,-485L1293.5,-479.1L1297.7,-470.9L1278,-467.4L1263,-478.5ZM1236.9,-78.9L1240.8,-63.6L1240,-49.2L1245,-27L1251.3,-9.6L1244.4,-15.4L1239.5,-14.1L1235.3,2.9L1240.9,16.2L1235.5,14.6L1231.6,23.4L1229.7,17.4L1232.4,-0.3L1230,-8.8L1232.1,-18.5L1231.8,-41L1228.9,-44.8L1229.7,-65.1L1235.1,-66.5ZM1523.8,-366.5L1522.9,-366.1L1514.5,-362.5L1515.3,-372.1L1522.9,-379.2L1523.8,-379.5L1523.8,-366.5ZM-1249.8,-379.5L-1249.8,-379.5L-1249.8,-379.5L-1237.1,-379.3L-1233,-368.2L-1249.8,-366.5L-1249.8,-366.5L-1249.8,-379.5ZM412.9,-245.8L412.9,-245.8L412.9,-245.8ZM466.1,-274.5L466.1,-274.5L466.1,-274.5ZM544.6,-375.3L544.6,-375.3L544.6,-375.3ZM1431.7,-81.2L1431.7,-81.2L1431.7,-81.2ZM1375.3,-362.5L1375.3,-362.5L1375.3,-362.5ZM1381,-319.4L1381,-319.4L1381,-319.4ZM1314.9,-507.2L1314.9,-507.2L1314.9,-507.2ZM1286.1,-524.8L1286.1,-524.8L1286.1,-524.8ZM1199.9,-378.8L1199.9,-378.8L1199.9,-378.8ZM966.8,-576.8L966.8,-576.8L966.8,-576.8ZM1003.6,-523.5L1003.6,-523.5L1003.6,-523.5ZM880.8,-512.3L880.8,-512.3L880.8,-512.3ZM878.8,-537.3L878.8,-537.3L878.8,-537.3ZM826.7,-542.8L826.7,-542.8L826.7,-542.8ZM712.2,-413.2L712.2,-413.2L712.2,-413.2ZM718.7,-428.7L718.7,-428.7L718.7,-428.7ZM780.7,-445.7L780.7,-445.7L780.7,-445.7ZM655.9,-333.1L655.9,-333.1L655.9,-333.1ZM649.8,-355.9L649.8,-355.9L649.8,-355.9ZM676.5,-270.7L676.5,-270.7L676.5,-270.7ZM522.6,-656.2L522.6,-656.2L522.6,-656.2ZM533.1,-650.4L533.1,-650.4L533.1,-650.4ZM528.1,-702L528.1,-702L528.1,-702ZM564.4,-665.2L564.4,-665.2L564.4,-665.2ZM556.3,-674.4L556.3,-674.4L556.3,-674.4ZM596.9,-651L596.9,-651L596.9,-651ZM588.7,-701.7L590.5,-688.9L577.8,-700.5ZM506.7,28.1L506.7,28.1L506.7,28.1ZM524.3,-325.6L512,-315.8L510,-329L516.3,-332.7ZM625.3,-685.1L618.7,-691L639.1,-706.8L641.2,-696.3ZM583.5,-658.4L576.8,-675.4L587.6,-674ZM616,-691.6L607.4,-671.9L594.2,-675.9L596.1,-690.7ZM608.1,-697.2L608.1,-697.2L608.1,-697.2ZM549.4,-661.2L549.4,-661.2L549.4,-661.2ZM576.8,-668.8L576.8,-657.1L566.3,-657.6ZM582.4,-727.4L579.6,-706.4L566.3,-709ZM558.6,-705.4L581.5,-689.5L566.2,-682.2L553.6,-690.5ZM627.4,-730.8L627.4,-730.8L627.4,-730.8ZM586.2,-736.4L586.2,-736.4L586.2,-736.4ZM851.1,-639.2L841.4,-655.1L859.7,-648.7ZM842.5,-706.7L842.5,-706.7L842.5,-706.7ZM1223.4,-443.7L1223.4,-443.7L1223.4,-443.7ZM1232.5,-440.8L1242.5,-423.1L1218.6,-429.4L1224,-440ZM1184.4,-484.9L1184.4,-484.9L1184.4,-484.9ZM1186.4,-441.3L1186.4,-441.3L1186.4,-441.3ZM1199.8,-88.2L1199.8,-88.2L1199.8,-88.2ZM1440.6,-334.2L1429.7,-339.9L1442,-340.9ZM1397.7,-137.7L1398.7,-143.9L1405.3,-141.9ZM1421,-84.8L1421,-84.8L1421,-84.8ZM1329.7,-15.4L1329.7,-15.4L1329.7,-15.4ZM1342,-31.6L1342,-31.6L1342,-31.6ZM1338.3,-27.3L1338.3,-27.3L1338.3,-27.3ZM1324.1,-9.3L1324.1,-9.3L1324.1,-9.3ZM1336.2,-33.6L1336.2,-33.6L1336.2,-33.6ZM1316.6,2.6L1316.6,2.6L1316.6,2.6ZM1308.1,12.4L1308.1,12.4L1308.1,12.4ZM1290.3,26.4L1290.3,26.4L1290.3,26.4ZM1281.9,30L1281.9,30L1281.9,30ZM1267.4,47L1267.4,47L1267.4,47ZM1263.5,38.9L1263.5,38.9L1263.5,38.9ZM1010.6,-455L1006,-446.4L996.1,-453.7L1000.6,-459.3ZM724.5,-637.7L724.5,-637.7L724.5,-637.7ZM753.6,-692.2L753.6,-692.2L753.6,-692.2ZM681.5,-419.1L683.6,-430.3L688.8,-421.1ZM735.1,-398.2L735.1,-398.2L735.1,-398.2ZM749.5,-409.3L749.5,-409.3L749.5,-409.3ZM770.1,-485.2L770.1,-485.2L770.1,-485.2ZM602.7,-342.1L591.2,-341.1L591.6,-354.1ZM298.5,-90.8L300.6,-90.6L310.9,-87.8L312.4,-78.4L288.1,-79.8L298,-90.9ZM395.8,21.4L406.7,25.4L411.1,32.1L398.3,40.1L395.5,32.4L387.5,29Z","M354.4,28.5L365.9,30.6L360.8,36.1L357.3,47L345.7,42.4L333.5,47.8L316,45.6L311.9,41.7L301.6,34.9L293,21.2L299.1,19.8L308.7,3L313.3,0.5L315.3,-1.2L328.8,3.1L342.1,-3.1L344.9,-1.9L354.6,15.3Z","M728.5,128.1L730.6,133.3L720.3,139L709.5,136.5L705.7,140.7L707.1,150.7L717.4,159.5L711.1,164.7L712,170.8L702.4,180.6L698.7,188.6L690.7,198L683.1,200.1L679.4,197.4L672.3,208L677.5,210.9L684.4,228.6L674.1,230.5L666.5,229.7L662.2,233.2L658.4,233.5L648.8,218.6L635.2,221.9L611.5,221.8L613.7,212.9L623.7,209.2L620.5,204L620.5,195.4L613.8,192.9L605.8,181.3L618.4,185.3L630.9,185.4L646.9,181.5L648.6,171.9L662.2,163.8L670.8,162.6L672.5,152.7L678.3,150.3L675.3,144.6L684.4,143.2L683.8,138.7L688.8,132.6L685.5,124.5L696.5,116.9L711.3,115.1L721.3,118.7L723.7,126.5Z","M193.2,388.4L193.2,388.4L193.2,388.4ZM241.8,315.9L245.4,320.9L249.7,328.5L249.2,333.4L244,336.1L232.6,356L228.4,367.5L223,372.8L215.2,368.5L206.8,376.1L202.9,385.8L183.8,389.4L178.5,380.8L168.8,373L157.9,373.3L158.4,352.5L160.5,352.2L166.6,340.3L164.7,331.8L165.1,325.2L169,317.9L179.3,314.6L186.2,316.7L191.4,321.5L197,318.8L211.1,323L215.5,319.3L224.9,318.7L233,320.7Z","M241.8,315.9L233,320.7L224.9,318.7L215.5,319.3L211.1,323L197,318.8L191.4,321.5L186.2,316.7L179.3,314.6L169,317.9L165.1,325.2L164.7,331.8L159.2,326.5L155.4,330.2L153.2,323.8L144.6,321.2L138.7,306.3L147,303.4L164,302.8L169.6,289.6L169.6,272.2L182,269.5L194.7,258L229.2,236L240.9,238.8L246.6,243.5L252.4,240.4L254,252.6L259.9,262.7L258.2,266L256.2,290.3L247.7,299.6L240.6,310.5Z","M70.1,200.6L70.1,203.9L70.1,215L44.4,215L44.4,236.4L36.6,240.3L36.7,254.2L6.3,254.3L5.7,258.6L6,253.5L22.7,253.2L27.4,246.1L30,234.5L41.2,224.9L44.3,214.7L49.2,207.4L62,207.5L69.3,205.3Z","M342.1,-3.1L349.3,-5.7L361.2,0.1L361.7,6.1L367.2,13.2L366.9,18.6L361.6,16.6L354.4,28.5L354.6,15.3L344.9,-1.9Z","M10.9,267.6L10.9,267.6L10.9,267.6ZM42.4,307.1L32.6,296.5L26.8,293L11.9,293.4L9.6,298.9L13.1,285.2L13.1,277.3L9.8,270.4L12.1,263.3L7,256.3L5.7,258.6L6.3,254.3L36.7,254.2L36.6,240.3L44.4,236.4L44.4,215L70.1,215L70.1,203.9L99.9,223.5L86.2,223.5L94.5,301.6L54.6,302.2L48.4,300.5Z","M249.2,126.3L249.2,126.3L249.2,126.3ZM247.3,124.6L247.3,124.6L247.3,124.6Z","M49.3,326.2L49.3,321.9L44.1,316.5L42.4,307.1L48.4,300.5L54.6,302.2L94.5,301.6L86.2,223.5L99.9,223.5L145.8,256.1L150,262.1L161.7,266.9L160.9,272.1L169.6,272.2L169.6,289.6L164,302.8L147,303.4L138.7,306.3L131.1,305.2L118.1,311.4L111.6,319.3L105.8,318.5L102.9,326.7L96.3,330.7L94.5,341.7L88.8,339.4L83.4,343.5L75.5,343.8L72.2,334.2L67.4,326.2L54.8,330.2Z","M303.1,62.7L309.2,62.1L313.6,72.2L298.5,77.1L295.5,66.6Z","M48.4,369.2L57.8,356.9L63.7,358L64.1,365.2L71.6,364.1L70.7,372.3L79.6,377.4L78.9,389L66.7,383.5Z","M683.7,83.3L689.4,84.2L700.3,77.8L677.7,69.8L683.6,62.7L686,57.7L693.9,57.4L703.2,61.1L703.7,54.8L708.8,52.3L719.7,56.8L729.8,55.2L746.6,57.2L755,63.3L740.8,71.8L738.9,74.8L728.9,75.8L726.3,81.2L719.4,79.6L707.1,85.3L704.3,91.3L690.2,93L687.7,89.7L670.9,90.5L671,86.1ZM685.6,86.8L685.6,86.8L685.6,86.8ZM690,86.3L690,86.3L690,86.3ZM681.7,87.5L681.7,87.5L681.7,87.5Z","M452.9,439.2L452.9,439.2L452.9,439.2ZM398.2,430.2L398.5,421.2L406.4,409.9L405.9,403.4L398.8,390L408.7,380.1L412.4,381.3L415,388.2L421.4,388.5L430.5,394.4L441.3,395.9L451.1,389.6L459.7,391.8L452.6,400.8L452.7,429.2L457,435.6L446.9,443.2L446.1,447.6L439.2,458.7L428.2,450.8L427,446Z","M523.6,35L523.6,35L523.6,35ZM524.6,33.8L524.6,33.8L524.6,33.8ZM542.9,29L542.9,29L542.9,29ZM683.6,62.7L669.1,71.9L665.5,79.1L660.4,73.6L651.8,74.2L649.3,65.4L645.6,65.3L644,56.2L637.1,47.3L614.6,49.7L607,40L587.3,27.5L568.3,33.5L568.3,72.3L565,72.9L554,61.8L541.5,67.6L542.3,57.4L532.2,53L525.4,37.5L533.2,29.5L546.9,29.8L543.6,27.2L546.4,20.3L544.7,11.8L531.3,10L516.3,18.7L507.7,2.8L501.4,2.8L496.5,-4.9L497.6,-16.1L501.6,-26.9L510.2,-21.6L511.6,-31L524.1,-39.3L528.4,-44.8L532.6,-41.6L540.2,-44.2L547.9,-41.7L558.1,-31.6L558,-35.9L566.9,-30.9L572.2,-36L586.6,-36.5L590.7,-32L610,-34L609.8,-41.2L599.8,-47.8L606.8,-53.1L607.4,-60.4L614.5,-60.1L606.8,-68.8L614.1,-73L641.5,-82L658.6,-85.3L668.5,-92.3L682,-91.1L684.7,-76.5L693.8,-77.3L704.7,-72.8L702.3,-66.6L710.6,-69.1L729,-79.6L727,-73L735.7,-65.7L753.3,-33L760.1,-39.2L764.7,-32.6L779.2,-35.7L793.5,-19.6L804.3,-19L809.8,-12.8L803.8,-6.3L797.7,-4.6L797,8.4L790.2,13.2L778,9.1L771.2,26.9L772.5,32.1L766.4,29.6L753.8,33.4L759.4,53.2L755,63.3L746.6,57.2L729.8,55.2L719.7,56.8L708.8,52.3L703.7,54.8L703.2,61.1L693.9,57.4L686,57.7Z","M413.4,148.9L412.7,155.4L410.9,158.4L406.3,160.6L410.1,166.8L406.5,184L405.9,184.7L400.9,169.2L402.6,165.8L407.5,152.2Z","M662.2,233.2L666.5,229.7L674.1,230.5L684.4,228.6L677.5,210.9L672.3,208L679.4,197.4L683.1,200.1L690.7,198L698.7,188.6L702.4,180.6L712,170.8L711.1,164.7L717.4,159.5L707.1,150.7L705.7,140.7L709.5,136.5L720.3,139L730.6,133.3L736.4,129.6L740.1,137.6L745.5,141.6L744.1,148.3L747.4,157.5L741,157.3L743.7,168.2L761.2,178.6L757.6,180.9L753.9,190.4L767.6,198.8L778.7,203.1L784.9,202.1L794.2,208.6L809.5,211.9L815.4,211.3L815.8,198.8L819.8,196.8L821.9,203.6L821.6,206.7L828.6,208.9L846.2,207.4L843,199.8L850.9,198.1L855.1,192.5L866,186.1L872.2,188.4L876.9,184.9L881.3,193.6L886.8,195.8L884.6,205.5L877.1,204.5L869.9,209.8L870,214.6L862.2,233L855.9,231.8L856.3,239.2L853.3,248.7L850.2,248.9L847.7,234.6L842.9,240.5L839.4,235.5L848.7,223.4L829.1,221L829.1,215.4L819,210.5L815.7,215.9L820.9,219.3L815.2,226.6L820.6,229.6L819.4,234.7L823.1,247.9L823.1,251.6L812.5,251.6L806.2,255L807.1,259.4L801.8,265.9L793.6,269.2L785,279.1L770.9,290.1L770.8,293.1L763.3,294.9L760.9,299.5L755.6,299.9L753.8,305L756,318.6L752.3,329.5L752.1,342.6L748.7,342.7L745.5,350.8L739.4,353.7L734.2,360.1L730,357.5L720.4,334.4L716.4,328.9L710.1,309.6L703.1,297.2L696.9,266.6L698.5,260.6L694.1,247.1L691.9,255.7L680.1,258.3L668.7,247.1L677.7,243.9L665.8,238.8ZM860.4,369.8L860.4,369.8L860.4,369.8ZM859.2,365.7L859.2,365.7L859.2,365.7ZM854.6,358.7L854.6,358.7L854.6,358.7ZM857,361.6L857,361.6L857,361.6ZM857.7,360.2L857.7,360.2L857.7,360.2ZM851.9,351.8L851.9,351.8L851.9,351.8ZM849.7,340.7L849.7,340.7L849.7,340.7ZM851.2,334.2L851.2,334.2L851.2,334.2ZM851.4,333L849.9,330.4L852.4,318.7L853.5,325.1ZM853.7,329.1L853.7,329.1L853.7,329.1ZM851.4,322.6L851.4,322.6L851.4,322.6ZM697.7,335.6L697.7,335.6L697.7,335.6ZM700,358.6L700,358.6L700,358.6Z","M8.2,326.6L19.9,324L31.2,324.1L31.2,331.5L23.9,333.2L21.1,337.7L18.1,329.8L15.1,331.2ZM12.9,336.8L12.9,336.8L12.9,336.8ZM14.5,336.6L14.5,336.6L14.5,336.6ZM15.8,335.6L15.8,335.6L15.8,335.6ZM17.2,333L17.2,333L17.2,333ZM14.5,333.6L14.5,333.6L14.5,333.6ZM13.8,330.3L13.8,330.3L13.8,330.3Z","M57.8,356.9L50.7,345.3L40.7,346.2L34.6,352.5L31.5,345.6L21.1,337.7L23.9,333.2L31.2,331.5L31.2,324.1L42.3,326.8L49.3,326.2L54.8,330.2L67.4,326.2L72.2,334.2L75.5,343.8L74.3,349L77.8,357.5L71.6,364.1L64.1,365.2L63.7,358Z","M351.7,119.6L351.7,119.6L351.7,119.6ZM295.8,101.8L295.8,101.8L295.8,101.8ZM298,107.5L298,107.5L298,107.5ZM296.4,99.6L296.4,99.6L296.4,99.6ZM297,102.3L297,102.3L297,102.3ZM291.7,91.4L291.7,91.4L291.7,91.4ZM317.4,96.1L317.4,96.1L317.4,96.1ZM320.2,94.6L320.2,94.6L320.2,94.6ZM321.1,94.2L321.1,94.2L321.1,94.2ZM327.1,97.6L327.1,97.6L327.1,97.6ZM327.9,79.5L327.9,79.5L327.9,79.5ZM318.5,106.3L318.5,106.3L318.5,106.3ZM314.6,123.1L314.6,123.1L314.6,123.1ZM346.4,129.9L346.4,129.9L346.4,129.9ZM345.2,115.7L345.2,115.7L345.2,115.7ZM344.6,117.9L344.6,117.9L344.6,117.9ZM333.8,115.6L333.8,115.6L333.8,115.6ZM331.8,114.6L331.8,114.6L331.8,114.6ZM333.3,121.1L333.3,121.1L333.3,121.1ZM332.6,118.4L332.6,118.4L332.6,118.4ZM343.7,107.4L343.7,107.4L343.7,107.4ZM337.6,110.2L337.6,110.2L337.6,110.2ZM336.3,117.3L336.3,117.3L336.3,117.3ZM340.9,119.3L340.9,119.3L340.9,119.3ZM324.7,109.7L324.7,109.7L324.7,109.7ZM325.3,112L325.3,112L325.3,112ZM326.1,117.6L326.1,117.6L326.1,117.6ZM329.2,110.5L329.2,110.5L329.2,110.5ZM329.6,107.9L329.6,107.9L329.6,107.9ZM331.6,109.5L331.6,109.5L331.6,109.5ZM327.5,116L327.5,116L327.5,116ZM338.1,103.4L338.1,103.4L338.1,103.4ZM340.5,92.5L340.5,92.5L340.5,92.5ZM334.9,81.4L334.9,81.4L334.9,81.4ZM333,85.9L333,85.9L333,85.9ZM332.7,111.2L332.7,111.2L332.7,111.2ZM326,114.1L326,114.1L326,114.1ZM351.5,125.5L351.5,125.5L351.5,125.5ZM320.8,129.3L339.2,133.9L328.1,135ZM339.8,68.3L342.1,71.5L337.6,78.4L330.4,75.7L320.1,78.2L311.1,85.4L316.4,92.9L311.1,96.8L321.7,102.9L322.3,108.4L314.5,106.8L314.2,115.1L309.4,120L305.7,117.8L299.9,107L305.2,102.4L313.6,106L309.8,101.3L299.7,101.8L291.1,88.7L294,87.7L298.5,77.1L313.6,72.2L325.9,70L331.6,73.1Z","M136.5,336.3L139.9,342.8L138.8,349.3L142.3,358.3L141,369.6L146.2,375.5L121.6,385.8L113,383.3L113.2,383L113.8,382.9L115.3,382.8L112.1,369.9L117.7,359.1L116.3,349.1L115.2,337.3Z","M471.7,74.5L466.7,69.8L456.8,70.3L456.7,58.5L445,50.4L450.2,49.2L463.8,52.5L475.7,59.4L482.7,57.4L494.7,66.5L494.9,74.9L483.7,72.6Z","M9.4,316.8L21.9,315.3L30.3,318.8L20.3,317.1L7.9,321Z","M408.7,380.1L404.4,371.1L396.4,363.2L391.4,361.1L393.1,357.6L399.7,356.2L399.6,349.3L401.1,340.9L406.2,338.3L407.5,330.8L415.2,323.6L418.4,311.5L426.5,312.4L428.9,306.8L433.7,310.2L438.1,308.6L451.1,312.4L463.5,325.7L458.8,332.6L459,337.4L467.7,337.2L465.7,340.2L472,349.9L476.2,353L498.5,360.5L506.7,360.7L483.3,384.6L476.2,384.3L459.7,391.8L451.1,389.6L441.3,395.9L430.5,394.4L421.4,388.5L415,388.2L412.4,381.3Z","M418.4,311.5L417.7,304.6L422.2,289.1L431.5,285L434.5,281.5L439.8,298.2L443.5,304.6L454.2,308.6L463.7,319.8L469.2,323.8L463.5,325.7L451.1,312.4L438.1,308.6L433.7,310.2L428.9,306.8L426.5,312.4ZM445.8,296.9L445.8,296.9L445.8,296.9ZM446.3,300L446.3,300L446.3,300Z","M470.2,333.3L467.7,337.2L459,337.4L458.8,332.6L463.5,325.7L469.2,323.8L471.5,327.9L465.5,332.8Z","M389,132.7L399,133.7L390.8,138.3Z","M113.2,383L113,383.3L113.2,383ZM75.5,343.8L83.4,343.5L88.8,339.4L94.5,341.7L103.6,347.8L112.2,345.9L116.3,349.1L117.7,359.1L112.1,369.9L115.3,382.8L113.8,382.9L94.1,383.3L78.9,389L79.6,377.4L70.7,372.3L71.6,364.1L77.8,357.5L74.3,349Z","M373.9,485.9L360.2,488L355.8,493.9L357.7,505.2L355.5,511.6L360.9,518.4L366.6,516.9L366.6,526.7L360.6,526.5L355.5,519.4L344.6,514.9L332.3,512.7L332.1,509.6L324.5,510.7L321.7,506.8L308.7,509.3L308,500.3L305.1,495.8L304.6,479L295.8,478.7L294.8,475.9L287.5,477.7L286,484.1L272.1,484.9L267.9,478.6L265.7,470.1L262.7,467.8L237.7,467.8L231.1,467L237.7,458.3L240.4,459.8L247.6,455.7L250.9,459.9L261.4,449.2L262,439.3L267.8,431.3L273.8,426.8L276.2,407L280.4,395.7L280.1,389.7L287.2,383L295.4,388.1L309.8,390.6L312.3,386.7L333.7,381.5L348.1,383.1L354.2,389L365.7,387.1L374.6,395.6L373.8,403.6L377.8,406.8L367.7,416.2L364.9,433.2L359.3,441.4L360.6,443.5L363.6,456.8L365.9,473.6L370.6,478.2Z","M321.8,269.3L321.8,299.4L315,300L308.3,318.9L305.2,323.2L309.2,324.2L313.1,337.9L310.3,337.3L293.7,351.9L284.5,352.8L280.3,360.2L273,360.8L266.3,364.2L264.5,361.7L256.3,364.4L253.5,356.3L244.7,347.5L246.8,345.2L257.6,345L252.8,336.3L253.2,330.6L248.9,321.7L245.4,320.9L241.8,315.9L240.6,310.5L247.7,299.6L256.2,290.3L258.2,266L259.9,262.7L254,252.6L252.4,240.4L260.1,236.6Z","M323.1,355.5L331.1,364.4L340.1,371.3L348.1,383.1L333.7,381.5L312.3,386.7L309.8,390.6L295.4,388.1L287.2,383L280.1,389.7L280.4,395.7L271.4,394.1L264.7,395.8L261.7,405L260.8,400.1L253.6,393L249.2,381.8L250.8,373.8L256.3,364.4L264.5,361.7L266.3,364.2L273,360.8L280.3,360.2L284.5,352.8L293.7,351.9L310.3,337.3L313.1,337.9L319.2,346.5L318.4,354.3Z","M-56.9,290L-56.9,290L-56.9,290ZM-43.6,305.5L-43.6,305.5L-43.6,305.5ZM-54.7,291L-54.7,291L-54.7,291ZM-39.5,295.7L-39.5,295.7L-39.5,295.7ZM-50.3,306.8L-50.3,306.8L-50.3,306.8ZM-48.6,292.6L-48.6,292.6L-48.6,292.6ZM-39.3,292.3L-39.3,292.3L-39.3,292.3ZM-41.6,304.5L-41.6,304.5L-41.6,304.5Z","M202.9,385.8L206.8,376.1L215.2,368.5L223,372.8L228.4,367.5L232.6,356L244,336.1L249.2,333.4L249.7,328.5L245.4,320.9L248.9,321.7L253.2,330.6L252.8,336.3L257.6,345L246.8,345.2L244.7,347.5L253.5,356.3L256.3,364.4L250.8,373.8L249.2,381.8L253.6,393L260.8,400.1L261.7,405L258.3,407.8L239.4,405.9L224.3,405.8L212.5,404.8L213.7,398.8L210.6,393.2Z","M372.4,441L374.2,447.8L366,456.9L363.6,456.8L360.6,443.5Z","M144,337.3L136.5,336.3L115.2,337.3L116.3,349.1L112.2,345.9L103.6,347.8L94.5,341.7L96.3,330.7L102.9,326.7L105.8,318.5L111.6,319.3L118.1,311.4L131.1,305.2L138.7,306.3L144.6,321.2L153.2,323.8L155.4,330.2L152.3,334Z","M352.8,65.6L347.3,64.5L339.8,68.3L331.6,73.1L325.9,70L313.6,72.2L309.2,62.1L314,52.9L310.8,50.1L311.9,41.7L316,45.6L333.5,47.8L345.7,42.4L357.3,47L348.8,60.4Z","M149.5,374.5L149.3,352.5L147.3,345.1L142.9,342L144,337.3L152.3,334L155.4,330.2L159.2,326.5L164.7,331.8L166.6,340.3L160.5,352.2L158.4,352.5L157.9,373.3Z","M482.3,89.2L481.9,88.7L489.6,92L492.3,96.9ZM513.5,101.3L507,97.5L509.3,91.8L505.1,89.3L495.2,96.7L491.1,83.4L483.7,72.6L494.9,74.9L494.7,66.5L505.8,73.4L511.2,66.9L516.3,75.3L525.1,82.9L518.8,83.8ZM488,79.5L488,79.5L488,79.5ZM483.9,75.3L483.9,75.3L483.9,75.3Z","M481.9,88.7L473.8,84.1L471.7,74.5L483.7,72.6L491.1,83.4L495.2,96.7L492.3,96.9L489.6,92ZM483.9,75.3L483.9,75.3L483.9,75.3ZM488,79.5L488,79.5L488,79.5Z","M237.7,458.3L231.1,467L229.6,461.1ZM321.7,506.8L321.6,523.5L306.4,523.5L306.4,547.1L307.7,552.2L317.1,560.6L302,563.5L283.1,561.9L278.8,558.7L244.4,558.6L238,555.2L227.5,557.5L229.2,544.5L233.7,527L240.4,519.8L243.7,508.2L237.2,492.5L240.1,487.2L231.8,469.5L237.7,467.8L262.7,467.8L265.7,470.1L267.9,478.6L272.1,484.9L286,484.1L287.5,477.7L294.8,475.9L295.8,478.7L304.6,479L305.1,495.8L308,500.3L308.7,509.3Z","M286,66.7L288.4,58.8L291.6,59.6L295.5,66.6L298.5,77.1L294,87.7L291.1,88.7L286,79Z"]};
+  const CI = {low:1.61, mid:2.34, high:3.39};
+  const raw = [
+    ["Egypt","Egypt",2196226,3160681,43.9,false],
+    ["Iran","Iran",1855759,2143246,15.5,true],
+    ["Türkiye","Türkiye",1777327,1925100,8.3,true],
+    ["Sudan","Sudan",865153,1563279,80.7,false],
+    ["Afghanistan","Afghanistan",718979,1400752,94.8,false],
+    ["Iraq","Iraq",838721,1374457,63.9,false],
+    ["Yemen","Yemen",689081,1307548,89.8,false],
+    ["Algeria","Algeria",887370,1192979,34.4,false],
+    ["Saudi Arabia","Saudi Arabia",680644,965310,41.8,false],
+    ["Morocco","Morocco",750411,889647,18.6,true],
+    ["Syria","Syria",489361,758363,55.0,true],
+    ["Jordan","Jordan",216237,324870,50.2,false],
+    ["United Arab Emirates","UAE",236815,314868,33.0,true],
+    ["Tunisia","Tunisia",245535,272491,11.0,false],
+    ["Libya","Libya",144158,188347,30.7,false],
+    ["Palestine","Palestine",97310,161644,66.1,true],
+    ["Oman","Oman",107116,157847,47.4,true],
+    ["Lebanon","Lebanon",115053,142303,23.7,true],
+    ["Kuwait","Kuwait",104055,131510,26.4,false],
+    ["Qatar","Qatar",65268,85333,30.7,false],
+    ["Bahrain","Bahrain",33732,44184,31.0,false]
+  ];
+  const r100 = n => Math.round(n/100)*100;
+  const lo = c => r100(c*CI.low/CI.mid);
+  const hi = c => r100(c*CI.high/CI.mid);
+  const rows = raw.map(r => ({
+    name:r[0], short:r[1], y25:r[2], y50:r[3], chg:r[4], data:r[5],
+    l25:lo(r[2]), h25:hi(r[2]), l50:lo(r[3]), h50:hi(r[3])
+  }));
+  const byName = Object.fromEntries(rows.map(r=>[r.name,r]));
+  const fmt = n => n.toLocaleString("en-US");
+  const rng = (a,b) => fmt(a)+" to "+fmt(b);
+  /* reference: fill journal, volume/pages and doi on publication */
+  const REF = {
+    authors:[["Bousamri","Abdullah"],["Mestarihi","Mohammad"],["Naser aldein","Mahmoud"],["Aqeel","Ahmad"],["Alrasheedi","Mubarak"]],
+    title:"Prevalence of keratoconus in the Middle East and North Africa and projected disease burden to 2050: a systematic review and meta-analysis",
+    titleApa:"Prevalence of keratoconus in the Middle East and North Africa and projected disease burden to 2050: A systematic review and meta-analysis",
+    titleCase:"Prevalence of Keratoconus in the Middle East and North Africa and Projected Disease Burden to 2050: A Systematic Review and Meta-Analysis",
+    journal:"[Journal]", year:"2026", volume:"", pages:"", doi:""
+  };
+  const ini = f => f.split(/\s+/).map(p=>p[0]).join("");
+  const iniDots = f => f.split(/\s+/).map(p=>p[0]+".").join(" ");
+  const doiUrl = () => REF.doi ? "https://doi.org/"+REF.doi : "[DOI pending]";
+  const doiTag = () => REF.doi ? "doi:"+REF.doi : "[DOI pending]";
+  const volPages = sep => (REF.volume ? sep+REF.volume : "") + (REF.pages ? ":"+REF.pages : "");
+  const A = REF.authors;
+  const FORMATS = {
+    "Vancouver": () => A.map(([l,f])=>`${l} ${ini(f)}`).join(", ") + `. ${REF.title}. ${REF.journal}. ${REF.year}${volPages(";")}. ${doiTag()}.`,
+    "APA": () => A.map(([l,f],i)=>`${i===A.length-1?"& ":""}${l}, ${iniDots(f)}`).join(", ") + ` (${REF.year}). ${REF.titleApa}. ${REF.journal}${REF.volume?", "+REF.volume:""}${REF.pages?", "+REF.pages:""}. ${doiUrl()}`,
+    "MLA": () => `${A[0][0]}, ${A[0][1]}, et al. \u201c${REF.titleCase}.\u201d ${REF.journal}${REF.volume?", vol. "+REF.volume:""}, ${REF.year}${REF.pages?", pp. "+REF.pages:""}, ${doiUrl()}.`,
+    "Chicago": () => `${A[0][0]}, ${A[0][1]}, ` + A.slice(1,-1).map(([l,f])=>`${f} ${l}`).join(", ") + `, and ${A[A.length-1][1]} ${A[A.length-1][0]}. ${REF.year}. \u201c${REF.titleCase}.\u201d ${REF.journal}${REF.volume?" "+REF.volume:""}${REF.pages?": "+REF.pages:""}. ${doiUrl()}.`,
+    "Harvard": () => A.map(([l,f],i)=>`${i===A.length-1?"and ":""}${l}, ${iniDots(f)}`).join(", ").replace(", and "," and ") + ` (${REF.year}) \u2018${REF.title}\u2019, ${REF.journal}${REF.volume?", "+REF.volume:""}${REF.pages?", pp. "+REF.pages:""}. ${doiTag()}.`,
+    "BibTeX": () => `@article{bousamri${REF.year}keratoconus,\n  author  = {${A.map(([l,f])=>`${l}, ${f}`).join(" and ")}},\n  title   = {${REF.title}},\n  journal = {${REF.journal}},\n  year    = {${REF.year}},${REF.volume?`\n  volume  = {${REF.volume}},`:""}${REF.pages?`\n  pages   = {${REF.pages}},`:""}\n  doi     = {${REF.doi||"pending"}}\n}`
+  };
+  const cite = FORMATS["Vancouver"]();
+  const slug = s => s.toLowerCase().replace(/ü/g,"u").replace(/[^a-z]+/g,"-").replace(/^-|-$/g,"");
+
+  let selected = "Kuwait";
+  try{
+    const h = decodeURIComponent(location.hash.slice(1));
+    const m = rows.find(r=>slug(r.name)===h); if(m) selected = m.name;
+  }catch(e){}
+  let sortKey = "y50", sortDir = -1;
+
+  document.getElementById("tr25").textContent = rng(lo(13114311), hi(13114311));
+  document.getElementById("tr50").textContent = rng(lo(18504759), hi(18504759));
+
+  const sel = document.getElementById("country");
+  rows.slice().sort((a,b)=>a.name.localeCompare(b.name)).forEach(r=>{
+    const o=document.createElement("option"); o.value=r.name; o.textContent=r.name; sel.appendChild(o);
+  });
+  sel.value = selected;
+  sel.addEventListener("change", e => select(e.target.value));
+
+  function select(name){
+    selected = name; sel.value = name;
+    try{ history.replaceState(null,"","#"+slug(name)); }catch(e){}
+    renderAll();
+  }
+
+  /* ---------- map ---------- */
+  const bins = [
+    {max:200000,   color:"#E1E5EC", dark:false, label:"Under 200,000"},
+    {max:500000,   color:"#BFC8D7", dark:false, label:"200,000 to 500,000"},
+    {max:1000000,  color:"#93A1BC", dark:false, label:"500,000 to 1 million"},
+    {max:2000000,  color:"#56688F", dark:true,  label:"1 to 2 million"},
+    {max:Infinity, color:"#17233B", dark:true,  label:"Over 2 million"}
+  ];
+  const binOf = v => bins.find(b => v < b.max);
+  const labelOverride = { "United Arab Emirates":{dx:3,dy:8}, "Tunisia":{dx:0,dy:0}, "Jordan":{dx:0,dy:2}, "Oman":{dx:-2,dy:0}, "Sudan":{dx:0,dy:-4}, "Egypt":{dx:0,dy:-2} };
+
+  function renderMap(){
+    const {W,H} = MAP;
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Map of 21 countries shaded by projected keratoconus cases in 2050, hatched where no population-based prevalence study exists">
+      <defs>
+        <pattern id="hI" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.3" height="6" fill="#17233B" opacity="0.5"/></pattern>
+        <pattern id="hP" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.3" height="6" fill="#F6F7F5" opacity="0.7"/></pattern>
+      </defs>`;
+    // context countries
+    s += `<g fill="#E9EBE6" stroke="#F6F7F5" stroke-width="0.7">` + MAP.context.map(d=>`<path d="${d}"/>`).join("") + `</g>`;
+    // study countries, unselected first, selected last so its outline sits on top
+    const ordered = MAP.study.slice().sort((a,b)=>(a.name===selected)-(b.name===selected));
+    for(const c of ordered){
+      const r = byName[c.name]; const b = binOf(r.y50); const isSel = c.name===selected;
+      const stroke = isSel ? `stroke="#A8323F" stroke-width="2"` : `stroke="#F6F7F5" stroke-width="0.7"`;
+      s += `<g class="c" tabindex="0" data-name="${c.name}"><title>${c.name}: ${fmt(r.y50)} projected cases in 2050${r.data?"":", no population-based study"}</title>`;
+      if(c.name==="Bahrain"){
+        s += `<circle class="base" cx="${c.cx}" cy="${c.cy}" r="3.6" fill="${b.color}" ${stroke}/>`;
+        if(!r.data) s += `<circle cx="${c.cx}" cy="${c.cy}" r="3.6" fill="url(#${b.dark?"hP":"hI"})"/>`;
+      } else {
+        s += `<path class="base" d="${c.d}" fill="${b.color}" ${stroke} stroke-linejoin="round"/>`;
+        if(!r.data) s += `<path d="${c.d}" fill="url(#${b.dark?"hP":"hI"})"/>`;
+        if(c.w < 22 || c.h < 16) s += `<circle cx="${c.cx}" cy="${c.cy}" r="9" fill="transparent"/>`;
+      }
+      s += `</g>`;
+    }
+    // labels
+    for(const c of MAP.study){
+      const r = byName[c.name]; const b = binOf(r.y50); const isSel = c.name===selected;
+      const weight = isSel ? 600 : 500;
+      if(c.label){
+        const fill = isSel ? "#A8323F" : "#17233B";
+        s += `<line x1="${c.cx}" y1="${c.cy}" x2="${c.label.x}" y2="${c.label.y}" stroke="${fill}" stroke-width="0.8"/>`;
+        const lx = c.label.x + (c.label.anchor==="start"?3:-3), ly = c.label.y+3.5;
+        s += `<text x="${lx}" y="${ly}" text-anchor="${c.label.anchor}" font-size="11" font-weight="${weight}" fill="none" stroke="#F6F7F5" stroke-width="3.5" stroke-linejoin="round">${c.name}</text>`;
+        s += `<text x="${lx}" y="${ly}" text-anchor="${c.label.anchor}" font-size="11" font-weight="${weight}" fill="${fill}">${c.name}</text>`;
+      } else {
+        const o = labelOverride[c.name] || {dx:0,dy:0};
+        const fill = isSel ? (b.dark ? "#F6F7F5" : "#A8323F") : (b.dark ? "#F6F7F5" : "#17233B");
+        s += `<text x="${c.cx+o.dx}" y="${c.cy+o.dy+3.5}" text-anchor="middle" font-size="11" font-weight="${weight}" fill="${fill}">${r.short}</text>`;
+      }
+    }
+    s += `</svg>`;
+    const el = document.getElementById("map");
+    el.innerHTML = s;
+    el.querySelectorAll(".c").forEach(g=>{
+      g.addEventListener("click", ()=>select(g.dataset.name));
+      g.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); select(g.dataset.name); } });
+    });
+  }
+  document.getElementById("mapKeys").innerHTML =
+    bins.map(b=>`<span><svg viewBox="0 0 22 12"><rect width="22" height="12" fill="${b.color}"/></svg>${b.label}</span>`).join("") +
+    `<span><svg viewBox="0 0 22 12"><rect width="22" height="12" fill="#93A1BC"/><rect width="22" height="12" fill="url(#hI)"/></svg>No population-based study</span>`;
+
+  /* ---------- bar chart ---------- */
+  function renderChart(){
+    const W=720, labelW=128, valW=82, rowH=24, top=6;
+    const barW = W-labelW-valW-10;
+    const ordered = rows.slice().sort((a,b)=>b.y50-a.y50);
+    const max = ordered[0].y50;
+    const H = top + ordered.length*rowH + 6;
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Projected keratoconus cases by country, 2025 and 2050, ranked by 2050 burden">
+      <defs>
+        <pattern id="hInk" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2.4" height="6" fill="#17233B"/></pattern>
+        <pattern id="hAcc" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2.4" height="6" fill="#A8323F"/></pattern>
+      </defs>`;
+    ordered.forEach((r,i)=>{
+      const y = top + i*rowH;
+      const isSel = r.name===selected;
+      const fill = r.data ? (isSel?"#A8323F":"#17233B") : (isSel?"url(#hAcc)":"url(#hInk)");
+      const w25 = r.y25/max*barW, w50 = r.y50/max*barW;
+      s += `<g class="row" tabindex="0" data-name="${r.name}"><title>${r.name}: ${fmt(r.y25)} in 2025, ${fmt(r.y50)} in 2050</title>`;
+      s += `<rect class="hit" x="0" y="${y}" width="${W}" height="${rowH}" fill="transparent"/>`;
+      s += `<text x="${labelW-10}" y="${y+rowH/2+4}" text-anchor="end" font-size="12.5" font-weight="${isSel?600:400}" fill="${isSel?"#A8323F":"#17233B"}">${r.short}</text>`;
+      s += `<rect x="${labelW}" y="${y+5}" width="${w50.toFixed(1)}" height="${rowH-10}" fill="${fill}" opacity="0.38"/>`;
+      s += `<rect x="${labelW}" y="${y+5}" width="${w25.toFixed(1)}" height="${rowH-10}" fill="${fill}"/>`;
+      s += `<text x="${labelW+w50+8}" y="${y+rowH/2+4}" font-size="11.5" fill="#5B6472">${fmt(r.y50)}</text>`;
+      s += `</g>`;
+    });
+    s += `</svg>`;
+    const el = document.getElementById("chart");
+    el.innerHTML = s;
+    el.querySelectorAll(".row").forEach(g=>{
+      g.addEventListener("click", ()=>select(g.dataset.name));
+      g.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); select(g.dataset.name); } });
+    });
+  }
+
+  /* ---------- panel ---------- */
+  function renderPanel(){
+    const r = byName[selected];
+    document.getElementById("v25").textContent = fmt(r.y25);
+    document.getElementById("r25").textContent = rng(r.l25,r.h25);
+    document.getElementById("v50").textContent = fmt(r.y50);
+    document.getElementById("r50").textContent = rng(r.l50,r.h50);
+    document.getElementById("chg").textContent = "+"+r.chg.toFixed(1)+"%";
+    document.getElementById("evidence").textContent = r.data
+      ? `At least one population-based prevalence study was identified for ${r.name}. The figures above still apply the regional pooled prevalence of 2.34%, not a country-specific estimate.`
+      : `No population-based prevalence study was identified for ${r.name}. The figures above apply the regional pooled prevalence of 2.34% to its population aged 10 and over.`;
+    document.getElementById("copyFig").textContent = `Copy ${r.short} figures`;
+  }
+
+  /* ---------- table ---------- */
+  function renderTable(){
+    const tb = document.querySelector("#table tbody");
+    const ordered = rows.slice().sort((a,b)=>{
+      if(sortKey==="name") return a.name.localeCompare(b.name)*sortDir*-1;
+      return (a[sortKey]-b[sortKey])*sortDir;
+    });
+    tb.innerHTML = ordered.map(r=>`
+      <tr class="${r.name===selected?"selected":""}" data-name="${r.name}">
+        <td>${r.name}</td>
+        <td>${fmt(r.y25)}</td><td class="range">${rng(r.l25,r.h25)}</td>
+        <td>${fmt(r.y50)}</td><td class="range">${rng(r.l50,r.h50)}</td>
+        <td>+${r.chg.toFixed(1)}%</td>
+        <td class="${r.data?"":"nodata"}">${r.data?"Yes":"None identified"}</td>
+      </tr>`).join("");
+    tb.querySelectorAll("tr").forEach(tr=>tr.addEventListener("click",()=>select(tr.dataset.name)));
+    document.querySelectorAll("#table th button").forEach(b=>{
+      b.setAttribute("aria-sort", b.dataset.k===sortKey ? (sortDir===-1?"descending":"ascending") : "none");
+    });
+  }
+  document.querySelectorAll("#table th button").forEach(b=>{
+    b.addEventListener("click",()=>{
+      if(sortKey===b.dataset.k) sortDir*=-1; else { sortKey=b.dataset.k; sortDir = b.dataset.k==="name"?1:-1; }
+      renderTable();
+    });
+  });
+
+  function renderAll(){ renderMap(); renderChart(); renderPanel(); renderTable(); }
+  renderAll();
+
+  /* ---------- copy / csv ---------- */
+  const toast = document.getElementById("toast");
+  function say(msg){ toast.textContent = msg; setTimeout(()=>{ if(toast.textContent===msg) toast.textContent=""; }, 2500); }
+  function fallback(text){
+    try{
+      const ta=document.createElement("textarea"); ta.value=text; ta.style.position="fixed"; ta.style.opacity="0";
+      document.body.appendChild(ta); ta.select(); const ok=document.execCommand("copy"); document.body.removeChild(ta); return ok;
+    }catch(e){ return false; }
+  }
+  function copy(text, label){
+    const done = ()=>say(label+" copied.");
+    const fail = ()=>say("Copy is blocked here. Select the text and copy it manually.");
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(()=>fallback(text)?done():fail());
+    } else { fallback(text)?done():fail(); }
+  }
+  document.getElementById("copyFig").addEventListener("click",()=>{
+    const r = byName[selected];
+    copy(`${r.name}, keratoconus, people aged 10 and over. 2025: ${fmt(r.y25)} (${rng(r.l25,r.h25)}). 2050: ${fmt(r.y50)} (${rng(r.l50,r.h50)}), +${r.chg.toFixed(1)}%. Source: ${cite}`, r.short+" figures");
+  });
+  /* ---------- rail popovers ---------- */
+  const pops = {
+    cite:    { pop:document.getElementById("citePop"),    btn:document.getElementById("railCite") },
+    outline: { pop:document.getElementById("outlinePop"), btn:document.getElementById("railOutline") }
+  };
+  let lastFocus = null;
+  function place(pop, anchor){
+    const mobile = window.matchMedia("(max-width:760px)").matches;
+    pop.classList.toggle("sheet", mobile);
+    if(mobile){ pop.style.left = pop.style.top = ""; return; }
+    const r = anchor.getBoundingClientRect();
+    pop.style.left = (r.right + 10) + "px";
+    const h = pop.offsetHeight;
+    const top = Math.max(12, Math.min(r.top - 6, window.innerHeight - h - 12));
+    pop.style.top = top + "px";
+  }
+  function openPop(key, anchor){
+    closeAll();
+    const {pop, btn} = pops[key];
+    lastFocus = document.activeElement;
+    if(key==="cite") showFmt(curFmt);
+    pop.hidden = false; btn.setAttribute("aria-expanded","true");
+    place(pop, anchor || btn);
+    const first = pop.querySelector("[role=tab][aria-selected=true], .outline a, button");
+    if(first) first.focus();
+  }
+  function closeAll(){
+    let was = false;
+    for(const k in pops){ const {pop, btn} = pops[k]; if(!pop.hidden){ was = true; } pop.hidden = true; btn.setAttribute("aria-expanded","false"); }
+    if(was && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  for(const k in pops){
+    const {pop, btn} = pops[k];
+    btn.addEventListener("click", ()=> pop.hidden ? openPop(k) : closeAll());
+  }
+  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click", closeAll));
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeAll(); });
+  document.addEventListener("click", e=>{
+    const inside = Object.values(pops).some(({pop,btn})=>pop.contains(e.target)||btn.contains(e.target));
+    if(!inside && e.target.id!=="copyCite") closeAll();
+  });
+  window.addEventListener("resize", ()=>{ for(const k in pops){ const {pop,btn}=pops[k]; if(!pop.hidden) place(pop, btn); } });
+  document.querySelectorAll(".outline a").forEach(a=>a.addEventListener("click", ()=>setTimeout(closeAll, 0)));
+  document.getElementById("copyCite").addEventListener("click", e=>openPop("cite", e.currentTarget));
+
+  /* cite formats */
+  const tabs = document.getElementById("citeTabs"), out = document.getElementById("citeOut");
+  let curFmt = "Vancouver";
+  tabs.innerHTML = Object.keys(FORMATS).map(k=>`<button role="tab" data-f="${k}" aria-selected="${k===curFmt}">${k}</button>`).join("");
+  function showFmt(k){
+    curFmt = k;
+    tabs.querySelectorAll("button").forEach(b=>b.setAttribute("aria-selected", b.dataset.f===k));
+    out.textContent = FORMATS[k]();
+    out.classList.toggle("code", k==="BibTeX");
+  }
+  tabs.addEventListener("click", e=>{ const b=e.target.closest("button[data-f]"); if(b) showFmt(b.dataset.f); });
+  const citeBtn = document.getElementById("railCite"), citeBtnLabel = citeBtn.querySelector("span:last-child");
+  document.getElementById("citeCopy").addEventListener("click", ()=>{
+    const text = FORMATS[curFmt]();
+    const done = ()=>{ closeAll(); citeBtnLabel.textContent = "Copied"; setTimeout(()=>{ citeBtnLabel.textContent = "Cite"; }, 1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(()=>{ if(fallback(text)) done(); else out.focus(); });
+    } else { if(fallback(text)) done(); else out.focus(); }
+  });
+  function downloadCsv(){
+    const head = "country,cases_2025,cases_2025_low,cases_2025_high,cases_2050,cases_2050_low,cases_2050_high,change_percent,population_based_study";
+    const lines = rows.map(r=>[r.name,r.y25,r.l25,r.h25,r.y50,r.l50,r.h50,r.chg,r.data?"yes":"no"].join(","));
+    const note = "# Pooled regional prevalence 2.34% (95% CI 1.61 to 3.39) applied to UN projected population aged 10 and over. Ranges use the CI limits, rounded to the nearest hundred. " + cite;
+    const csv = [head, ...lines, note].join("\n");
+    try{
+      const blob = new Blob([csv],{type:"text/csv"});
+      const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="keratoconus_mena_2025_2050.csv";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      say("CSV downloaded.");
+    }catch(e){ copy(csv,"CSV"); }
+  }
+  document.getElementById("csv").addEventListener("click", downloadCsv);
+  document.getElementById("railData").addEventListener("click", downloadCsv);
+
+  /* ---------- share ---------- */
+  const shareLabel = document.getElementById("shareLabel");
+  document.getElementById("railShare").addEventListener("click", ()=>{
+    const base = (document.querySelector('link[rel="canonical"]')||{}).href || location.href.split("#")[0];
+    const url = base + "#" + slug(selected);
+    const done = ()=>{ shareLabel.textContent = "Copied"; setTimeout(()=>shareLabel.textContent="Share",1600); };
+    if(navigator.share){ navigator.share({title:document.title, url}).catch(()=>{}); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(done).catch(()=>{ if(fallback(url)) done(); });
+    } else if(fallback(url)) done();
+  });
+
+  /* ---------- paper link ---------- */
+  const paper = document.getElementById("railPaper"), paperLabel = document.getElementById("paperLabel");
+  if(REF.doi){ paper.href = "https://doi.org/"+REF.doi; paper.target = "_blank"; paper.rel = "noopener"; }
+  else {
+    paper.classList.add("muted"); paper.title = "Available on publication"; paper.setAttribute("aria-disabled","true");
+    paper.addEventListener("click", e=>{ e.preventDefault(); paperLabel.textContent = "Soon"; setTimeout(()=>paperLabel.textContent="Paper",1400); });
+  }
+})();
+</script>
+</body>
+</html>
